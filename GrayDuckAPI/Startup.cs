@@ -167,7 +167,7 @@ namespace GrayDuck
             //};
 
             //Important for GitHUb Integration
-            rollbarConfig.Server = new Rollbar.DTOs.Server { Host = "localhost", Root = "C:\\Users\\nkrug\\OneDrive\\Desktop\\NETCore GrayDuck\\", Branch = "master" };
+            rollbarConfig.Server = new Rollbar.DTOs.Server { Host = "localhost", Root = "C:\\Users\\nkrug\\OneDrive\\Desktop\\NETCoreGrayDuck\\", Branch = "master" };
 
             RollbarLocator.RollbarInstance
             // minimally required Rollbar configuration:

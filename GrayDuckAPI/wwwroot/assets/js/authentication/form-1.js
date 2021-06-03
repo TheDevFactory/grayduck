@@ -30,7 +30,7 @@ jQuery(document).ready(function ($) {
 
         //Execute Auth Against API (Auth Token)
         jQuery.ajax({
-            url: '/api/token?email=' + varUSER1 + '&password=' + varPASS,
+            url: '/api/token?email=' + varUSER1 + '&password=' + varPASS1,
             async: true,
             dataType: 'json',
             type: 'POST',
