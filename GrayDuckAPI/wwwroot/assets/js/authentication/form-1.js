@@ -14,6 +14,7 @@ if (togglePassword) {
 }
 
 
+
 jQuery(document).ready(function ($) {
 
     $('#btnLoginAuth').on('click', function (e) {
