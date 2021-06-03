@@ -21,14 +21,11 @@ namespace GrayDuckAPI.Controllers
     public class fileController : ControllerBase
     {
         readonly IConfiguration objConfiguration;
-        auditlogService objAuditLog;
-        auditlogModel objAudit = new auditlogModel();
 
         //Initialize Configuration so we can use it as needed
         public fileController(IConfiguration _configuration)
         {
             objConfiguration = _configuration;
-            objAuditLog = new auditlogService(objConfiguration, null);
         }
 
         // GET: api/file/5
@@ -40,26 +37,6 @@ namespace GrayDuckAPI.Controllers
 
                 //objectType - Would be contact, account
                 //fileid - Would be per type. Contact or Account
-
-
-                //************** Generate Audit Log Results ************** ****************************
-                //objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                //objAudit.objectId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserToken = objAuthIdentity.authToken;
-                //objAudit.objectType = "CONTACTFILE";
-                objAudit.eventType = "DownloadFile (fileid,objectType)";
-                objAudit.environmentMachine = HttpContext.Connection?.RemoteIpAddress?.ToString();
-                objAudit.environmentDomain = HttpContext.Request.Host.Value.ToString();
-                objAudit.environmentCulture = CultureInfo.CurrentCulture.Name;
-                objAudit.targetAPI = HttpContext.Request.Path.ToString();
-                objAudit.targetAction = "DownloadFile";
-                objAudit.targetMethod = HttpContext.Request.Method;
-                //objAudit.targetTable = "subscriptionuser";
-                //objAudit.targetResult = "200";
-                //objAudit.targetNewValue = "";
-                //*************************************************************************************
-
 
                 if (HttpContext.Request.Headers.TryGetValue("Authorization", out var objAuthHeaderValue) == false)
                     // No Header Auth Info
@@ -133,19 +110,6 @@ namespace GrayDuckAPI.Controllers
 
                                     if (_dataTable == null) {
 
-                                        //****************************************************************************
-                                        objAudit.objectType = "CONTACTFILE";
-                                        objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                                        objAudit.objectId = Guid.Parse(fileid);
-                                        objAudit.environmentUserId = objAuthIdentity.authUserId;
-                                        objAudit.environmentUserToken = objAuthIdentity.authToken;
-                                        objAudit.targetResult = "400";
-                                        objAudit.targetNewValue = "Error, Unknown download request.";
-                                        objAudit.targetTable = "contactfile";
-                                        
-                                        await objAuditLog.Create(objAudit);
-                                        //****************************************************************************
-
                                         return BadRequest("Error, Unknown download request."); 
 
                                     } else {
@@ -166,45 +130,10 @@ namespace GrayDuckAPI.Controllers
                                         }
 
                                         if (strfilename == "") {
-
-                                            //****************************************************************************
-                                            objAudit.objectType = "CONTACTFILE";
-                                            objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                                            objAudit.objectId = Guid.Parse(fileid);
-                                            objAudit.environmentUserId = objAuthIdentity.authUserId;
-                                            objAudit.environmentUserToken = objAuthIdentity.authToken;
-                                            objAudit.targetResult = "400";
-                                            objAudit.targetNewValue = "Error, Unknown download request. Filename is empty.";
-                                            objAudit.targetTable = "contactfile";
-
-                                            await objAuditLog.Create(objAudit);
-                                            //****************************************************************************
-
                                             return BadRequest("Error, Unknown download request.");
 
                                         } else {
-
-                                            //****************************************************************************
-                                            objAudit.objectType = "CONTACTFILE";
-                                            objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                                            objAudit.objectId = Guid.Parse(fileid);
-                                            objAudit.environmentUserId = objAuthIdentity.authUserId;
-                                            objAudit.environmentUserToken = objAuthIdentity.authToken;
-                                            objAudit.targetResult = "200";
-                                            objAudit.targetNewValue = "Download File (" +strfilename + ")";
-                                            objAudit.targetTable = "contactfile";
-
-                                            await objAuditLog.Create(objAudit);
-
-                                            //Seperate Log Entry on the contact record
-                                            objAudit.objectType = "CONTACT";
-                                            objAudit.objectId = Guid.Parse(strcontactid);
-                                            objAudit.targetTable = "contact";
-                                            await objAuditLog.Create(objAudit);
-                                            //****************************************************************************
-
                                             return File(b, strfiletype, strfilename);
-
                                         }
                                     }                                  
 
@@ -216,19 +145,6 @@ namespace GrayDuckAPI.Controllers
 
                                     if (_dataTable == null)
                                     {
-
-                                        //****************************************************************************
-                                        objAudit.objectType = "ACCOUNTFILE";
-                                        objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                                        objAudit.objectId = Guid.Parse(fileid);
-                                        objAudit.environmentUserId = objAuthIdentity.authUserId;
-                                        objAudit.environmentUserToken = objAuthIdentity.authToken;
-                                        objAudit.targetResult = "400";
-                                        objAudit.targetNewValue = "Error, Unknown download request.";
-                                        objAudit.targetTable = "accountfile";
-
-                                        await objAuditLog.Create(objAudit);
-                                        //****************************************************************************
 
                                         return BadRequest("Error, Unknown download request.");
 
@@ -253,45 +169,11 @@ namespace GrayDuckAPI.Controllers
 
                                         if (strfilename == "")
                                         {
-
-                                            //****************************************************************************
-                                            objAudit.objectType = "ACCOUNTFILE";
-                                            objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                                            objAudit.objectId = Guid.Parse(fileid);
-                                            objAudit.environmentUserId = objAuthIdentity.authUserId;
-                                            objAudit.environmentUserToken = objAuthIdentity.authToken;
-                                            objAudit.targetResult = "400";
-                                            objAudit.targetNewValue = "Error, Unknown download request. Filename is empty.";
-                                            objAudit.targetTable = "accountfile";
-
-                                            await objAuditLog.Create(objAudit);
-                                            //****************************************************************************
-
                                             return BadRequest("Error, Unknown download request.");
 
                                         }
                                         else
                                         {
-
-                                            //****************************************************************************
-                                            objAudit.objectType = "ACCOUNTFILE";
-                                            objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                                            objAudit.objectId = Guid.Parse(fileid);
-                                            objAudit.environmentUserId = objAuthIdentity.authUserId;
-                                            objAudit.environmentUserToken = objAuthIdentity.authToken;
-                                            objAudit.targetResult = "200";
-                                            objAudit.targetNewValue = "Download File (" + strfilename + ")";
-                                            objAudit.targetTable = "accountfile";
-
-                                            await objAuditLog.Create(objAudit);
-
-                                            //Seperate Log Entry on the contact record
-                                            objAudit.objectType = "ACCOUNT";
-                                            objAudit.objectId = Guid.Parse(straccountid);
-                                            objAudit.targetTable = "account";
-                                            await objAuditLog.Create(objAudit);
-                                            //****************************************************************************
-
                                             return File(b, strfiletype, strfilename);
 
                                         }
@@ -331,24 +213,6 @@ namespace GrayDuckAPI.Controllers
             {
                 //objectType - Would be contact, account
                 //fileid - Would be per type. Contact or Account
-
-                //************** Generate Audit Log Results ************** ****************************
-                //objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                //objAudit.objectId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserToken = objAuthIdentity.authToken;
-                //objAudit.objectType = "CONTACTFILE";
-                objAudit.eventType = "DeleteFile (fileid,objectType)";
-                objAudit.environmentMachine = HttpContext.Connection?.RemoteIpAddress?.ToString();
-                objAudit.environmentDomain = HttpContext.Request.Host.Value.ToString();
-                objAudit.environmentCulture = CultureInfo.CurrentCulture.Name;
-                objAudit.targetAPI = HttpContext.Request.Path.ToString();
-                objAudit.targetAction = "DeleteFile";
-                objAudit.targetMethod = HttpContext.Request.Method;
-                //objAudit.targetTable = "subscriptionuser";
-                //objAudit.targetResult = "200";
-                //objAudit.targetNewValue = "";
-                //*************************************************************************************
 
                 if (HttpContext.Request.Headers.TryGetValue("Authorization", out var objAuthHeaderValue) == false)
                     // No Header Auth Info
@@ -423,19 +287,6 @@ namespace GrayDuckAPI.Controllers
 
                                     _contactFileService.Remove(Guid.Empty,Guid.Parse(fileid));
 
-                                    //****************************************************************************
-                                    objAudit.objectType = "CONTACTFILE";
-                                    objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                                    objAudit.objectId = Guid.Parse(fileid);
-                                    objAudit.environmentUserId = objAuthIdentity.authUserId;
-                                    objAudit.environmentUserToken = objAuthIdentity.authToken;
-                                    objAudit.targetResult = "200";
-                                    objAudit.targetNewValue = "File Deleted";
-                                    objAudit.targetTable = "contactfile";
-
-                                    await objAuditLog.Create(objAudit);
-                                    //****************************************************************************
-
                                     return Ok();
                                     
                                 case "ACCOUNT":
@@ -449,18 +300,6 @@ namespace GrayDuckAPI.Controllers
                         }
                         else
                         {
-                            //****************************************************************************
-                            objAudit.objectType = "CONTACTFILE";
-                            objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                            objAudit.objectId = Guid.Parse(fileid);
-                            objAudit.environmentUserId = objAuthIdentity.authUserId;
-                            objAudit.environmentUserToken = objAuthIdentity.authToken;
-                            objAudit.targetResult = "400";
-                            objAudit.targetNewValue = "Error, Access denied to perform this action. Confirm your subcritpionId and access rights. Delete File.";
-                            objAudit.targetTable = "contactfile";
-
-                            await objAuditLog.Create(objAudit);
-                            //****************************************************************************
 
                             return Unauthorized("Error, Access denied to perform this action. Confirm your subcritpionId and access rights.");
                         }

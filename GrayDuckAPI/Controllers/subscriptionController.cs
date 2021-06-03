@@ -19,14 +19,11 @@ namespace GrayDuck.Controllers
     {
 
         readonly IConfiguration objConfiguration;
-        auditlogService objAuditLog;
-        auditlogModel objAudit = new auditlogModel();
-
+                
         //Initialize Configuration so we can use it as needed
         public subscriptionController(IConfiguration _configuration)
         {
             objConfiguration = _configuration;
-            objAuditLog = new auditlogService(objConfiguration, null);
         }
 
         // GET: api/subscription
@@ -35,24 +32,6 @@ namespace GrayDuck.Controllers
         {
             try
             {
-
-                //************** Generate Audit Log Results ************** ****************************
-                //objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                //objAudit.objectId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserToken = objAuthIdentity.authToken;
-                objAudit.objectType = "SUBSCRIPTION";
-                objAudit.eventType = "GetSubscriptions";
-                objAudit.environmentMachine = HttpContext.Connection?.RemoteIpAddress?.ToString();
-                objAudit.environmentDomain = HttpContext.Request.Host.Value.ToString();
-                objAudit.environmentCulture = CultureInfo.CurrentCulture.Name;
-                objAudit.targetAPI = HttpContext.Request.Path.ToString();
-                objAudit.targetAction = "GetSubscriptions";
-                objAudit.targetMethod = HttpContext.Request.Method;
-                //objAudit.targetTable = "subscriptionuser";
-                //objAudit.targetResult = "200";
-                //objAudit.targetNewValue = "";
-                //*************************************************************************************
 
                 if (HttpContext.Request.Headers.TryGetValue("Authorization", out var objAuthHeaderValue) == false)
                     // No Header Auth Info
@@ -79,35 +58,10 @@ namespace GrayDuck.Controllers
                     {
                         subscriptionService objSubscriptionService = new subscriptionService(objConfiguration, objAuthIdentity);
 
-                        //****************************************************************************
-                        objAudit.objectType = "SUBSCRIPTION";
-                        objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                        objAudit.objectId = Guid.Empty;
-                        objAudit.environmentUserId = objAuthIdentity.authUserId;
-                        objAudit.environmentUserToken = objAuthIdentity.authToken;
-                        objAudit.targetResult = "200";
-                        objAudit.targetNewValue = "Return Subscriptions";
-                        objAudit.targetTable = "subscription";
-
-                        await objAuditLog.Create(objAudit);
-                        //****************************************************************************
-
                         return Ok(await objSubscriptionService.Get());
                     }
                     else
                     {
-                        //****************************************************************************
-                        objAudit.objectType = "SUBSCRIPTION";
-                        objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                        objAudit.objectId = Guid.Empty;
-                        objAudit.environmentUserId = objAuthIdentity.authUserId;
-                        objAudit.environmentUserToken = objAuthIdentity.authToken;
-                        objAudit.targetResult = "401";
-                        objAudit.targetNewValue = "Error, Access denied to perform this action. Confirm your subcritpionId and access rights. Return Subscriptions.";
-                        objAudit.targetTable = "subscription";
-
-                        await objAuditLog.Create(objAudit);
-                        //****************************************************************************
 
                         return Unauthorized("Error, Access denied to perform this action. Confirm your subcritpionId and access rights.");
                     }
@@ -129,24 +83,6 @@ namespace GrayDuck.Controllers
             try
             {
 
-                //************** Generate Audit Log Results ************** ****************************
-                //objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                //objAudit.objectId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserToken = objAuthIdentity.authToken;
-                objAudit.objectType = "SUBSCRIPTION";
-                objAudit.eventType = "GetSubscription (id)";
-                objAudit.environmentMachine = HttpContext.Connection?.RemoteIpAddress?.ToString();
-                objAudit.environmentDomain = HttpContext.Request.Host.Value.ToString();
-                objAudit.environmentCulture = CultureInfo.CurrentCulture.Name;
-                objAudit.targetAPI = HttpContext.Request.Path.ToString();
-                objAudit.targetAction = "GetSubscription";
-                objAudit.targetMethod = HttpContext.Request.Method;
-                //objAudit.targetTable = "subscriptionuser";
-                //objAudit.targetResult = "200";
-                //objAudit.targetNewValue = "";
-                //*************************************************************************************
-
                 if (HttpContext.Request.Headers.TryGetValue("Authorization", out var objAuthHeaderValue) == false)
                     // No Header Auth Info
                     return Unauthorized("Error, No Authorization header found in the request.");
@@ -172,36 +108,10 @@ namespace GrayDuck.Controllers
                     {
                         subscriptionService objSubscriptionService = new subscriptionService(objConfiguration, objAuthIdentity);
 
-                        //****************************************************************************
-                        objAudit.objectType = "SUBSCRIPTION";
-                        objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                        objAudit.objectId = id;
-                        objAudit.environmentUserId = objAuthIdentity.authUserId;
-                        objAudit.environmentUserToken = objAuthIdentity.authToken;
-                        objAudit.targetResult = "200";
-                        objAudit.targetNewValue = "Return Subscription";
-                        objAudit.targetTable = "subscription";
-
-                        await objAuditLog.Create(objAudit);
-                        //****************************************************************************
-
                         return Ok(await objSubscriptionService.Get(id));
                     }
                     else
                     {
-
-                        //****************************************************************************
-                        objAudit.objectType = "SUBSCRIPTION";
-                        objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                        objAudit.objectId = id;
-                        objAudit.environmentUserId = objAuthIdentity.authUserId;
-                        objAudit.environmentUserToken = objAuthIdentity.authToken;
-                        objAudit.targetResult = "401";
-                        objAudit.targetNewValue = "Error, Access denied to perform this action. Confirm your subcritpionId and access rights. Return Subscription.";
-                        objAudit.targetTable = "subscription";
-
-                        await objAuditLog.Create(objAudit);
-                        //****************************************************************************
 
                         return Unauthorized("Error, Access denied to perform this action. Confirm your subcritpionId and access rights.");
                     }
@@ -221,59 +131,32 @@ namespace GrayDuck.Controllers
         [HttpPost]
         public async Task <ActionResult<subscriptionSignupModel>> Post(subscriptionModel objItem)
         {
-            try
+            //try
+            //{
+
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    return BadRequest("Error, " + ex.Message);
+            //}
+
+            subscriptionService objSubscriptionService = new subscriptionService(objConfiguration, null);
+            subscriptionSignupModel objNewSubscription;
+
+            //objSubscriptionService.Create(objItem);
+            //return CreatedAtRoute("GetSubscription", new { id = objItem.Id.ToString() }, objItem);
+
+            //Custom SignUp Process - For new Subscriptions only
+            if (objItem.name == "string")
             {
-
-                //************** Generate Audit Log Results ************** ****************************
-                //objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                //objAudit.objectId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserToken = objAuthIdentity.authToken;
-                objAudit.objectType = "SUBSCRIPTION";
-                objAudit.eventType = "CreateSubscription";
-                objAudit.environmentMachine = HttpContext.Connection?.RemoteIpAddress?.ToString();
-                objAudit.environmentDomain = HttpContext.Request.Host.Value.ToString();
-                objAudit.environmentCulture = CultureInfo.CurrentCulture.Name;
-                objAudit.targetAPI = HttpContext.Request.Path.ToString();
-                objAudit.targetAction = "CreateSubscription";
-                objAudit.targetMethod = HttpContext.Request.Method;
-                //objAudit.targetTable = "subscriptionuser";
-                //objAudit.targetResult = "200";
-                //objAudit.targetNewValue = "";
-                //*************************************************************************************
-
-
-                subscriptionService objSubscriptionService = new subscriptionService(objConfiguration,null);
-                subscriptionSignupModel objNewSubscription;
-
-                //objSubscriptionService.Create(objItem);
-                //return CreatedAtRoute("GetSubscription", new { id = objItem.Id.ToString() }, objItem);
-
-                //Custom SignUp Process - For new Subscriptions only
-                if (objItem.name == "string") {
-                    return BadRequest("Error, Invalid subscritpion name provided.");
-                } else {
-                    objNewSubscription = await objSubscriptionService.SignUp(objItem); //Dedicated Signup Function for new subscriptions
-
-                    //****************************************************************************
-                    objAudit.objectType = "SUBSCRIPTION";
-                    objAudit.subscriptionId = Guid.Parse(objNewSubscription.Id);
-                    objAudit.objectId = Guid.Parse(objNewSubscription.Id);
-                    objAudit.environmentUserId = Guid.Empty;
-                    objAudit.environmentUserToken = Guid.Empty;
-                    objAudit.targetResult = "200";
-                    objAudit.targetNewValue = "Create Subscription";
-                    objAudit.targetTable = "subscription";
-
-                    await objAuditLog.Create(objAudit);
-                    //****************************************************************************
-
-                    return objNewSubscription;
-                }
+                return BadRequest("Error, Invalid subscritpion name provided.");
             }
-            catch (Exception ex)
+            else
             {
-                return BadRequest("Error, " + ex.Message);
+                objNewSubscription = await objSubscriptionService.SignUp(objItem); //Dedicated Signup Function for new subscriptions
+
+                return objNewSubscription;
             }
 
         }
@@ -285,24 +168,6 @@ namespace GrayDuck.Controllers
         {
             try
             {
-
-                //************** Generate Audit Log Results ************** ****************************
-                //objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                //objAudit.objectId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserToken = objAuthIdentity.authToken;
-                objAudit.objectType = "SUBSCRIPTION";
-                objAudit.eventType = "UpdateSubscription";
-                objAudit.environmentMachine = HttpContext.Connection?.RemoteIpAddress?.ToString();
-                objAudit.environmentDomain = HttpContext.Request.Host.Value.ToString();
-                objAudit.environmentCulture = CultureInfo.CurrentCulture.Name;
-                objAudit.targetAPI = HttpContext.Request.Path.ToString();
-                objAudit.targetAction = "UpdateSubscription";
-                objAudit.targetMethod = HttpContext.Request.Method;
-                //objAudit.targetTable = "subscriptionuser";
-                //objAudit.targetResult = "200";
-                //objAudit.targetNewValue = "";
-                //*************************************************************************************
 
                 if (HttpContext.Request.Headers.TryGetValue("Authorization", out var objAuthHeaderValue) == false)
                     // No Header Auth Info
@@ -331,36 +196,10 @@ namespace GrayDuck.Controllers
 
                         //return Ok(objSubscriptionService.Get());
 
-                        //****************************************************************************
-                        objAudit.objectType = "SUBSCRIPTION";
-                        objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                        objAudit.objectId = objItem.Id;
-                        objAudit.environmentUserId = objAuthIdentity.authUserId;
-                        objAudit.environmentUserToken = objAuthIdentity.authToken;
-                        objAudit.targetResult = "200";
-                        objAudit.targetNewValue = "Update Subscription";
-                        objAudit.targetTable = "subscription";
-
-                        await objAuditLog.Create(objAudit);
-                        //****************************************************************************
-
                         return Ok();
                     }
                     else
                     {
-
-                        //****************************************************************************
-                        objAudit.objectType = "SUBSCRIPTION";
-                        objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                        objAudit.objectId = objItem.Id;
-                        objAudit.environmentUserId = objAuthIdentity.authUserId;
-                        objAudit.environmentUserToken = objAuthIdentity.authToken;
-                        objAudit.targetResult = "401";
-                        objAudit.targetNewValue = "Error, Access denied to perform this action. Confirm your subcritpionId and access rights. Update Subscription.";
-                        objAudit.targetTable = "subscription";
-
-                        await objAuditLog.Create(objAudit);
-                        //****************************************************************************
 
                         return Unauthorized("Error, Access denied to perform this action. Confirm your subcritpionId and access rights.");
                     }
@@ -381,24 +220,6 @@ namespace GrayDuck.Controllers
         {
             try
             {
-
-                //************** Generate Audit Log Results ************** ****************************
-                //objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                //objAudit.objectId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserToken = objAuthIdentity.authToken;
-                objAudit.objectType = "SUBSCRIPTION";
-                objAudit.eventType = "DeleteSubscription";
-                objAudit.environmentMachine = HttpContext.Connection?.RemoteIpAddress?.ToString();
-                objAudit.environmentDomain = HttpContext.Request.Host.Value.ToString();
-                objAudit.environmentCulture = CultureInfo.CurrentCulture.Name;
-                objAudit.targetAPI = HttpContext.Request.Path.ToString();
-                objAudit.targetAction = "DeleteSubscription";
-                objAudit.targetMethod = HttpContext.Request.Method;
-                //objAudit.targetTable = "subscriptionuser";
-                //objAudit.targetResult = "200";
-                //objAudit.targetNewValue = "";
-                //*************************************************************************************
 
                 if (HttpContext.Request.Headers.TryGetValue("Authorization", out var objAuthHeaderValue) == false)
                     // No Header Auth Info
@@ -447,58 +268,16 @@ namespace GrayDuck.Controllers
 
                             if (rowsAffected == 0)
                             {
-
-                                //****************************************************************************
-                                objAudit.objectType = "SUBSCRIPTION";
-                                objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                                objAudit.objectId = id;
-                                objAudit.environmentUserId = objAuthIdentity.authUserId;
-                                objAudit.environmentUserToken = objAuthIdentity.authToken;
-                                objAudit.targetResult = "400";
-                                objAudit.targetNewValue = "Error, 0 records deleted. Delete Subscription.";
-                                objAudit.targetTable = "subscription";
-
-                                await objAuditLog.Create(objAudit);
-                                //****************************************************************************
-
                                 return BadRequest("Error, 0 records deleted.");
                             }
                             else
                             {
-
-                                //****************************************************************************
-                                objAudit.objectType = "SUBSCRIPTION";
-                                objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                                objAudit.objectId = id;
-                                objAudit.environmentUserId = objAuthIdentity.authUserId;
-                                objAudit.environmentUserToken = objAuthIdentity.authToken;
-                                objAudit.targetResult = "200";
-                                objAudit.targetNewValue = "Delete Subscription";
-                                objAudit.targetTable = "subscription";
-
-                                await objAuditLog.Create(objAudit);
-                                //****************************************************************************
-
                                 return Ok();
                             }
 
                         }
                         else
                         {
-
-                            //****************************************************************************
-                            objAudit.objectType = "SUBSCRIPTION";
-                            objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                            objAudit.objectId = id;
-                            objAudit.environmentUserId = objAuthIdentity.authUserId;
-                            objAudit.environmentUserToken = objAuthIdentity.authToken;
-                            objAudit.targetResult = "401";
-                            objAudit.targetNewValue = "Error, Access denied to perform this action. Confirm your subcritpionId and access rights. Delete Subscription.";
-                            objAudit.targetTable = "subscription";
-
-                            await objAuditLog.Create(objAudit);
-                            //****************************************************************************
-
                             return Unauthorized("Error, Access denied to perform this action. Confirm your subcritpionId and access rights.");
                         }
                     }

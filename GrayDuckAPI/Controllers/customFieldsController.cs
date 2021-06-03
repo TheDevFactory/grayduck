@@ -17,14 +17,11 @@ namespace GrayDuck.Controllers
     {
 
         readonly IConfiguration objConfiguration;
-        auditlogService objAuditLog;
-        auditlogModel objAudit = new auditlogModel();
 
         //Initialize Configuration so we can use it as needed
         public customFieldsController(IConfiguration _configuration)
         {
             objConfiguration = _configuration;
-            objAuditLog = new auditlogService(objConfiguration, null);
         }
 
         // GET: api/customFields
@@ -33,24 +30,6 @@ namespace GrayDuck.Controllers
         {
             try
             {
-
-                //************** Generate Audit Log Results ************** ****************************
-                //objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                //objAudit.objectId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserToken = objAuthIdentity.authToken;
-                objAudit.objectType = "CUSTOMFIELD";
-                objAudit.eventType = "GetCustomFields";
-                objAudit.environmentMachine = HttpContext.Connection?.RemoteIpAddress?.ToString();
-                objAudit.environmentDomain = HttpContext.Request.Host.Value.ToString();
-                objAudit.environmentCulture = CultureInfo.CurrentCulture.Name;
-                objAudit.targetAPI = HttpContext.Request.Path.ToString();
-                objAudit.targetAction = "GetCustomFields";
-                objAudit.targetMethod = HttpContext.Request.Method;
-                //objAudit.targetTable = "subscriptionuser";
-                //objAudit.targetResult = "200";
-                //objAudit.targetNewValue = "";
-                //*************************************************************************************
 
                 if (HttpContext.Request.Headers.TryGetValue("Authorization", out var objAuthHeaderValue) == false)
                     // No Header Auth Info
@@ -77,37 +56,10 @@ namespace GrayDuck.Controllers
                     {
                         customFieldService _customfieldService = new customFieldService(objConfiguration, objAuthIdentity);
 
-                        //****************************************************************************
-                        objAudit.objectType = "CUSTOMFIELD";
-                        objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                        objAudit.objectId = Guid.Empty;
-                        objAudit.environmentUserId = objAuthIdentity.authUserId;
-                        objAudit.environmentUserToken = objAuthIdentity.authToken;
-                        objAudit.targetResult = "200";
-                        objAudit.targetNewValue = "Return Custom Fields";
-                        objAudit.targetTable = "customfield";
-
-                        await objAuditLog.Create(objAudit);
-                        //****************************************************************************
-
                         return Ok(await _customfieldService.Get());
                     }
                     else
                     {
-
-                        //****************************************************************************
-                        objAudit.objectType = "CUSTOMFIELD";
-                        objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                        objAudit.objectId = Guid.Empty;
-                        objAudit.environmentUserId = objAuthIdentity.authUserId;
-                        objAudit.environmentUserToken = objAuthIdentity.authToken;
-                        objAudit.targetResult = "401";
-                        objAudit.targetNewValue = "Error, Access denied to perform this action. Confirm your subcritpionId and access rights. Return Custom Fields.";
-                        objAudit.targetTable = "customfield";
-
-                        await objAuditLog.Create(objAudit);
-                        //****************************************************************************
-
                         return Unauthorized("Error, Access denied to perform this action. Confirm your subcritpionId and access rights.");
                     }
 
@@ -126,24 +78,6 @@ namespace GrayDuck.Controllers
         {
             try
             {
-
-                //************** Generate Audit Log Results ************** ****************************
-                //objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                //objAudit.objectId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserToken = objAuthIdentity.authToken;
-                objAudit.objectType = "CUSTOMFIELD";
-                objAudit.eventType = "GetCustomFields (id)";
-                objAudit.environmentMachine = HttpContext.Connection?.RemoteIpAddress?.ToString();
-                objAudit.environmentDomain = HttpContext.Request.Host.Value.ToString();
-                objAudit.environmentCulture = CultureInfo.CurrentCulture.Name;
-                objAudit.targetAPI = HttpContext.Request.Path.ToString();
-                objAudit.targetAction = "GetCustomFields";
-                objAudit.targetMethod = HttpContext.Request.Method;
-                //objAudit.targetTable = "subscriptionuser";
-                //objAudit.targetResult = "200";
-                //objAudit.targetNewValue = "";
-                //*************************************************************************************
 
                 if (HttpContext.Request.Headers.TryGetValue("Authorization", out var objAuthHeaderValue) == false)
                     // No Header Auth Info
@@ -186,37 +120,10 @@ namespace GrayDuck.Controllers
                         {
                             customFieldService _customFieldService = new customFieldService(objConfiguration, objAuthIdentity);
 
-                            //****************************************************************************
-                            objAudit.objectType = "CUSTOMFIELD";
-                            objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                            objAudit.objectId = Guid.Parse(id);
-                            objAudit.environmentUserId = objAuthIdentity.authUserId;
-                            objAudit.environmentUserToken = objAuthIdentity.authToken;
-                            objAudit.targetResult = "200";
-                            objAudit.targetNewValue = "Return Custom Field";
-                            objAudit.targetTable = "customfield";
-
-                            await objAuditLog.Create(objAudit);
-                            //****************************************************************************
-
                             return Ok(await _customFieldService.Get(Guid.Parse(id)));
                         }
                         else
                         {
-
-                            //****************************************************************************
-                            objAudit.objectType = "CUSTOMFIELD";
-                            objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                            objAudit.objectId = Guid.Parse(id);
-                            objAudit.environmentUserId = objAuthIdentity.authUserId;
-                            objAudit.environmentUserToken = objAuthIdentity.authToken;
-                            objAudit.targetResult = "401";
-                            objAudit.targetNewValue = "Error, Access denied to perform this action. Confirm your subcritpionId and access rights. Return Custom Field.";
-                            objAudit.targetTable = "customfield";
-
-                            await objAuditLog.Create(objAudit);
-                            //****************************************************************************
-
                             return Unauthorized("Error, Access denied to perform this action. Confirm your subcritpionId and access rights.");
                         }
                     }
@@ -241,24 +148,6 @@ namespace GrayDuck.Controllers
         {
             try
             {
-
-                //************** Generate Audit Log Results ************** ****************************
-                //objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                //objAudit.objectId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserToken = objAuthIdentity.authToken;
-                objAudit.objectType = "CUSTOMFIELD";
-                objAudit.eventType = "CreateCustomField";
-                objAudit.environmentMachine = HttpContext.Connection?.RemoteIpAddress?.ToString();
-                objAudit.environmentDomain = HttpContext.Request.Host.Value.ToString();
-                objAudit.environmentCulture = CultureInfo.CurrentCulture.Name;
-                objAudit.targetAPI = HttpContext.Request.Path.ToString();
-                objAudit.targetAction = "CreateCustomField";
-                objAudit.targetMethod = HttpContext.Request.Method;
-                //objAudit.targetTable = "subscriptionuser";
-                //objAudit.targetResult = "200";
-                //objAudit.targetNewValue = "";
-                //*************************************************************************************
 
                 if (HttpContext.Request.Headers.TryGetValue("Authorization", out var objAuthHeaderValue) == false)
                     // No Header Auth Info
@@ -303,37 +192,11 @@ namespace GrayDuck.Controllers
                             customFieldService _customFieldService = new customFieldService(objConfiguration, objAuthIdentity);
                             objItem = await _customFieldService.Create(objItem);
 
-                            //****************************************************************************
-                            objAudit.objectType = "CUSTOMFIELD";
-                            objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                            objAudit.objectId = Guid.Empty;
-                            objAudit.environmentUserId = objAuthIdentity.authUserId;
-                            objAudit.environmentUserToken = objAuthIdentity.authToken;
-                            objAudit.targetResult = "200";
-                            objAudit.targetNewValue = "Create Custom Fields";
-                            objAudit.targetTable = "customfield";
-
-                            await objAuditLog.Create(objAudit);
-                            //****************************************************************************
-
                             //return CreatedAtRoute("GetCustomFields", new { id = objItem.Id.ToString() }, objItem);
                             return Created("GetCustomFields", objItem);
                         }
                         else
                         {
-
-                            //****************************************************************************
-                            objAudit.objectType = "CUSTOMFIELD";
-                            objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                            objAudit.objectId = Guid.Empty;
-                            objAudit.environmentUserId = objAuthIdentity.authUserId;
-                            objAudit.environmentUserToken = objAuthIdentity.authToken;
-                            objAudit.targetResult = "401";
-                            objAudit.targetNewValue = "Error, Access denied to perform this action. Confirm your subcritpionId and access rights. Create Custom Fields";
-                            objAudit.targetTable = "customfield";
-
-                            await objAuditLog.Create(objAudit);
-                            //****************************************************************************
 
                             return Unauthorized("Error, Access denied to perform this action. Confirm your subcritpionId and access rights.");
                         }
@@ -360,24 +223,6 @@ namespace GrayDuck.Controllers
         {
             try
             {
-
-                //************** Generate Audit Log Results ************** ****************************
-                //objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                //objAudit.objectId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserToken = objAuthIdentity.authToken;
-                objAudit.objectType = "CUSTOMFIELD";
-                objAudit.eventType = "DeleteCustomField";
-                objAudit.environmentMachine = HttpContext.Connection?.RemoteIpAddress?.ToString();
-                objAudit.environmentDomain = HttpContext.Request.Host.Value.ToString();
-                objAudit.environmentCulture = CultureInfo.CurrentCulture.Name;
-                objAudit.targetAPI = HttpContext.Request.Path.ToString();
-                objAudit.targetAction = "DeleteCustomField";
-                objAudit.targetMethod = HttpContext.Request.Method;
-                //objAudit.targetTable = "subscriptionuser";
-                //objAudit.targetResult = "200";
-                //objAudit.targetNewValue = "";
-                //*************************************************************************************
 
                 if (HttpContext.Request.Headers.TryGetValue("Authorization", out var objAuthHeaderValue) == false)
                     // No Header Auth Info
@@ -422,36 +267,10 @@ namespace GrayDuck.Controllers
 
                             //_customFieldService.Remove(id);
 
-                            //****************************************************************************
-                            objAudit.objectType = "CUSTOMFIELD";
-                            objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                            objAudit.objectId = id;
-                            objAudit.environmentUserId = objAuthIdentity.authUserId;
-                            objAudit.environmentUserToken = objAuthIdentity.authToken;
-                            objAudit.targetResult = "200";
-                            objAudit.targetNewValue = "Remove Custom Field";
-                            objAudit.targetTable = "customfield";
-
-                            await objAuditLog.Create(objAudit);
-                            //****************************************************************************
-
                             return Ok();
                         }
                         else
                         {
-
-                            //****************************************************************************
-                            objAudit.objectType = "CUSTOMFIELD";
-                            objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                            objAudit.objectId = id;
-                            objAudit.environmentUserId = objAuthIdentity.authUserId;
-                            objAudit.environmentUserToken = objAuthIdentity.authToken;
-                            objAudit.targetResult = "401";
-                            objAudit.targetNewValue = "Error, Access denied to perform this action. Confirm your subcritpionId and access rights. Remove Custom Field.";
-                            objAudit.targetTable = "customfield";
-
-                            await objAuditLog.Create(objAudit);
-                            //****************************************************************************
 
                             return Unauthorized("Error, Access denied to perform this action. Confirm your subcritpionId and access rights.");
                         }

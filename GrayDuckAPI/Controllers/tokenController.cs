@@ -22,14 +22,11 @@ namespace GrayDuck.Controllers
     {
 
         readonly IConfiguration objConfiguration;
-        auditlogService objAuditLog;
-        auditlogModel objAudit = new auditlogModel();
 
         //Initialize Configuration so we can use it as needed
         public tokenController(IConfiguration _configuration)
         {
             objConfiguration = _configuration;
-            objAuditLog = new auditlogService(objConfiguration, null);
         }
 
 
@@ -40,24 +37,6 @@ namespace GrayDuck.Controllers
 
             try
             {
-                //************** Generate Audit Log Results ************** ****************************
-                //objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                //objAudit.objectId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserToken = objAuthIdentity.authToken;
-                objAudit.objectType = "USER";
-                objAudit.eventType = "AuthenticateUser (email,password)";
-                objAudit.environmentMachine = HttpContext.Connection?.RemoteIpAddress?.ToString();
-                objAudit.environmentDomain = HttpContext.Request.Host.Value.ToString();
-                objAudit.environmentCulture = CultureInfo.CurrentCulture.Name;
-                objAudit.targetAPI = HttpContext.Request.Path.ToString();
-                objAudit.targetAction = "AuthenticateUser";
-                objAudit.targetMethod = HttpContext.Request.Method;
-                objAudit.targetTable = "subscriptionuser";
-                //objAudit.targetResult = "200";
-                //objAudit.targetNewValue = "";
-                //*************************************************************************************
-
 
                 //New Auth Object - Perform Authentication (email and password)
                 subscriptionUserService objUserAuthentication = new subscriptionUserService(objConfiguration, null);
@@ -68,15 +47,6 @@ namespace GrayDuck.Controllers
                 // Normally Identity handles sign in, but you can do it directly
                 if (objAuthIdentity.authMessage == "SUCCESS")
                 {
-                    
-                    objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                    objAudit.objectId = objAuthIdentity.authUserId;
-                    objAudit.environmentUserId = objAuthIdentity.authUserId;
-                    objAudit.environmentUserToken = objAuthIdentity.authToken;
-                    objAudit.targetResult = "200";
-                    objAudit.targetNewValue = objAuthIdentity.authMessage;
-                    await objAuditLog.Create(objAudit);
-
                     return Ok(objAuthIdentity);
                 }
                 else
@@ -139,25 +109,6 @@ namespace GrayDuck.Controllers
             try
             {
 
-                //************** Generate Audit Log Results ************** ****************************
-                //objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                //objAudit.objectId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserToken = objAuthIdentity.authToken;
-                objAudit.objectType = "USER";
-                objAudit.eventType = "AuthenticateUser (token)";
-                objAudit.environmentMachine = HttpContext.Connection?.RemoteIpAddress?.ToString();
-                objAudit.environmentDomain = HttpContext.Request.Host.Value.ToString();
-                objAudit.environmentCulture = CultureInfo.CurrentCulture.Name;
-                objAudit.targetAPI = HttpContext.Request.Path.ToString();
-                objAudit.targetAction = "AuthenticateUser";
-                objAudit.targetMethod = HttpContext.Request.Method;
-                objAudit.targetTable = "subscriptionuser";
-                //objAudit.targetResult = "200";
-                //objAudit.targetNewValue = "";
-                //*************************************************************************************
-
-
                 if (HttpContext.Request.Headers.TryGetValue("Authorization", out var objAuthHeaderValue) == false)
                     // No Header Auth Info
                     return Unauthorized("Error, No Authorization header found in the request.");
@@ -194,15 +145,6 @@ namespace GrayDuck.Controllers
                         //If we are Authorized to Perform this action lets proceed
                         if (boolAuthorized == true)
                         {
-
-                            objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                            objAudit.objectId = objAuthIdentity.authUserId;
-                            objAudit.environmentUserId = objAuthIdentity.authUserId;
-                            objAudit.environmentUserToken = objAuthIdentity.authToken;
-                            objAudit.targetResult = "200";
-                            objAudit.targetNewValue = objAuthIdentity.authMessage;
-                            await objAuditLog.Create(objAudit);
-
                             return Ok();
                         }
                         else

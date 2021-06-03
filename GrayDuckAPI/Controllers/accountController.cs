@@ -19,15 +19,11 @@ namespace GrayDuck.Controllers
     {
 
         readonly IConfiguration objConfiguration;
-        
-        auditlogService objAuditLog;
-        auditlogModel objAudit = new auditlogModel();
 
         //Initialize Configuration so we can use it as needed
         public accountController(IConfiguration _configuration)
         {
             objConfiguration = _configuration;
-            objAuditLog = new auditlogService(objConfiguration, null);
         }
 
 
@@ -44,24 +40,6 @@ namespace GrayDuck.Controllers
         {
             try
             {
-
-                //************** Generate Audit Log Results ************** ****************************
-                //objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                //objAudit.objectId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserToken = objAuthIdentity.authToken;
-                objAudit.objectType = "ACCOUNT";
-                objAudit.eventType = "GetAccounts";
-                objAudit.environmentMachine = HttpContext.Connection?.RemoteIpAddress?.ToString();
-                objAudit.environmentDomain = HttpContext.Request.Host.Value.ToString();
-                objAudit.environmentCulture = CultureInfo.CurrentCulture.Name;
-                objAudit.targetAPI = HttpContext.Request.Path.ToString();
-                objAudit.targetAction = "GetAccounts";
-                objAudit.targetMethod = HttpContext.Request.Method;
-                //objAudit.targetTable = "subscriptionuser";
-                //objAudit.targetResult = "200";
-                //objAudit.targetNewValue = "";
-                //*************************************************************************************
 
                 if (HttpContext.Request.Headers.TryGetValue("Authorization", out var objAuthHeaderValue) == false)
                     // No Header Auth Info
@@ -104,36 +82,10 @@ namespace GrayDuck.Controllers
                         {
                             accountService _accountService = new accountService(objConfiguration, objAuthIdentity);
 
-                            //****************************************************************************
-                            objAudit.objectType = "ACCOUNT";
-                            objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                            objAudit.objectId = Guid.Empty;
-                            objAudit.environmentUserId = objAuthIdentity.authUserId;
-                            objAudit.environmentUserToken = objAuthIdentity.authToken;
-                            objAudit.targetResult = "200";
-                            objAudit.targetNewValue = "Return Accounts";
-                            objAudit.targetTable = "account";
-
-                            await objAuditLog.Create(objAudit);
-                            //****************************************************************************
-
                             return Ok(await _accountService.Get());
                         }
                         else
                         {
-
-                            //****************************************************************************
-                            objAudit.objectType = "ACCOUNT";
-                            objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                            objAudit.objectId = Guid.Empty;
-                            objAudit.environmentUserId = objAuthIdentity.authUserId;
-                            objAudit.environmentUserToken = objAuthIdentity.authToken;
-                            objAudit.targetResult = "401";
-                            objAudit.targetNewValue = "Error, Access denied to perform this action. Confirm your subcritpionId and access rights. Return Accounts.";
-                            objAudit.targetTable = "account";
-
-                            await objAuditLog.Create(objAudit);
-                            //****************************************************************************
 
                             return Unauthorized("Error, Access denied to perform this action. Confirm your subcritpionId and access rights.");
                         }
@@ -167,24 +119,6 @@ namespace GrayDuck.Controllers
             try
             {
 
-                //************** Generate Audit Log Results ************** ****************************
-                //objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                //objAudit.objectId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserToken = objAuthIdentity.authToken;
-                objAudit.objectType = "ACCOUNT";
-                objAudit.eventType = "GetAccount (id)";
-                objAudit.environmentMachine = HttpContext.Connection?.RemoteIpAddress?.ToString();
-                objAudit.environmentDomain = HttpContext.Request.Host.Value.ToString();
-                objAudit.environmentCulture = CultureInfo.CurrentCulture.Name;
-                objAudit.targetAPI = HttpContext.Request.Path.ToString();
-                objAudit.targetAction = "GetAccount";
-                objAudit.targetMethod = HttpContext.Request.Method;
-                //objAudit.targetTable = "subscriptionuser";
-                //objAudit.targetResult = "200";
-                //objAudit.targetNewValue = "";
-                //*************************************************************************************
-
                 if (HttpContext.Request.Headers.TryGetValue("Authorization", out var objAuthHeaderValue) == false)
                     // No Header Auth Info
                     return Unauthorized("Error, No Authorization header found in the request.");
@@ -226,36 +160,10 @@ namespace GrayDuck.Controllers
                         {
                             accountService _accountService = new accountService(objConfiguration, objAuthIdentity);
 
-                            //****************************************************************************
-                            objAudit.objectType = "ACCOUNT";
-                            objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                            objAudit.objectId = id;
-                            objAudit.environmentUserId = objAuthIdentity.authUserId;
-                            objAudit.environmentUserToken = objAuthIdentity.authToken;
-                            objAudit.targetResult = "200";
-                            objAudit.targetNewValue = "Return Account";
-                            objAudit.targetTable = "account";
-
-                            await objAuditLog.Create(objAudit);
-                            //****************************************************************************
-
                             return Ok(await _accountService.Get(id));
                         }
                         else
                         {
-
-                            //****************************************************************************
-                            objAudit.objectType = "ACCOUNT";
-                            objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                            objAudit.objectId = id;
-                            objAudit.environmentUserId = objAuthIdentity.authUserId;
-                            objAudit.environmentUserToken = objAuthIdentity.authToken;
-                            objAudit.targetResult = "401";
-                            objAudit.targetNewValue = "Error, Access denied to perform this action. Confirm your subcritpionId and access rights. Return Account.";
-                            objAudit.targetTable = "account";
-
-                            await objAuditLog.Create(objAudit);
-                            //****************************************************************************
 
                             return Unauthorized("Error, Access denied to perform this action. Confirm your subcritpionId and access rights.");
                         }
@@ -281,24 +189,6 @@ namespace GrayDuck.Controllers
         {
             try
             {
-
-                //************** Generate Audit Log Results ************** ****************************
-                //objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                //objAudit.objectId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserToken = objAuthIdentity.authToken;
-                objAudit.objectType = "ACCOUNT";
-                objAudit.eventType = "CreateAccount";
-                objAudit.environmentMachine = HttpContext.Connection?.RemoteIpAddress?.ToString();
-                objAudit.environmentDomain = HttpContext.Request.Host.Value.ToString();
-                objAudit.environmentCulture = CultureInfo.CurrentCulture.Name;
-                objAudit.targetAPI = HttpContext.Request.Path.ToString();
-                objAudit.targetAction = "CreateAccount";
-                objAudit.targetMethod = HttpContext.Request.Method;
-                //objAudit.targetTable = "subscriptionuser";
-                //objAudit.targetResult = "200";
-                //objAudit.targetNewValue = "";
-                //*************************************************************************************
 
                 if (HttpContext.Request.Headers.TryGetValue("Authorization", out var objAuthHeaderValue) == false)
                     // No Header Auth Info
@@ -326,36 +216,10 @@ namespace GrayDuck.Controllers
                        accountService _accountService = new accountService(objConfiguration, objAuthIdentity);  
                        await  _accountService.Create(objItem);
 
-
-                        //****************************************************************************
-                        objAudit.objectType = "ACCOUNT";
-                        objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                        objAudit.objectId = objItem.Id;
-                        objAudit.environmentUserId = objAuthIdentity.authUserId;
-                        objAudit.environmentUserToken = objAuthIdentity.authToken;
-                        objAudit.targetResult = "200";
-                        objAudit.targetNewValue = "Create Account";
-                        objAudit.targetTable = "account";
-
-                        await objAuditLog.Create(objAudit);
-                        //****************************************************************************
-
                         return CreatedAtRoute("GetAccount", new { id = objItem.Id.ToString() }, objItem);
                     }
                     else
                     {
-                        //****************************************************************************
-                        objAudit.objectType = "ACCOUNT";
-                        objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                        objAudit.objectId = Guid.Empty;
-                        objAudit.environmentUserId = objAuthIdentity.authUserId;
-                        objAudit.environmentUserToken = objAuthIdentity.authToken;
-                        objAudit.targetResult = "401";
-                        objAudit.targetNewValue = "Error, Access denied to perform this action. Confirm your subcritpionId and access rights. Create Account.";
-                        objAudit.targetTable = "account";
-
-                        await objAuditLog.Create(objAudit);
-                        //****************************************************************************
 
                         return Unauthorized("Error, Access denied to perform this action. Confirm your subcritpionId and access rights.");
                     }
@@ -376,24 +240,6 @@ namespace GrayDuck.Controllers
         {
             try
             {
-
-                //************** Generate Audit Log Results ************** ****************************
-                //objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                //objAudit.objectId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserToken = objAuthIdentity.authToken;
-                objAudit.objectType = "ACCOUNT";
-                objAudit.eventType = "UpdateAccount";
-                objAudit.environmentMachine = HttpContext.Connection?.RemoteIpAddress?.ToString();
-                objAudit.environmentDomain = HttpContext.Request.Host.Value.ToString();
-                objAudit.environmentCulture = CultureInfo.CurrentCulture.Name;
-                objAudit.targetAPI = HttpContext.Request.Path.ToString();
-                objAudit.targetAction = "UpdateAccount";
-                objAudit.targetMethod = HttpContext.Request.Method;
-                //objAudit.targetTable = "subscriptionuser";
-                //objAudit.targetResult = "200";
-                //objAudit.targetNewValue = "";
-                //*************************************************************************************
 
                 if (HttpContext.Request.Headers.TryGetValue("Authorization", out var objAuthHeaderValue) == false)
                     // No Header Auth Info
@@ -439,20 +285,6 @@ namespace GrayDuck.Controllers
                     }
                     else
                     {
-
-                        //****************************************************************************
-                        objAudit.objectType = "ACCOUNT";
-                        objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                        objAudit.objectId = objItem.Id;
-                        objAudit.environmentUserId = objAuthIdentity.authUserId;
-                        objAudit.environmentUserToken = objAuthIdentity.authToken;
-                        objAudit.targetResult = "401";
-                        objAudit.targetNewValue = "Error, Access denied to perform this action. Confirm your subcritpionId and access rights. Update Account.";
-                        objAudit.targetTable = "account";
-
-                        await objAuditLog.Create(objAudit);
-                        //****************************************************************************
-
                         return Unauthorized("Error, Access denied to perform this action. Confirm your subcritpionId and access rights.");
                     }
 
@@ -472,24 +304,6 @@ namespace GrayDuck.Controllers
         {
             try
             {
-
-                //************** Generate Audit Log Results ************** ****************************
-                //objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                //objAudit.objectId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserToken = objAuthIdentity.authToken;
-                objAudit.objectType = "ACCOUNT";
-                objAudit.eventType = "DeleteAccount";
-                objAudit.environmentMachine = HttpContext.Connection?.RemoteIpAddress?.ToString();
-                objAudit.environmentDomain = HttpContext.Request.Host.Value.ToString();
-                objAudit.environmentCulture = CultureInfo.CurrentCulture.Name;
-                objAudit.targetAPI = HttpContext.Request.Path.ToString();
-                objAudit.targetAction = "DeleteAccount";
-                objAudit.targetMethod = HttpContext.Request.Method;
-                //objAudit.targetTable = "subscriptionuser";
-                //objAudit.targetResult = "200";
-                //objAudit.targetNewValue = "";
-                //*************************************************************************************
 
                 if (HttpContext.Request.Headers.TryGetValue("Authorization", out var objAuthHeaderValue) == false)
                     // No Header Auth Info
@@ -522,57 +336,16 @@ namespace GrayDuck.Controllers
 
                         if (rowsAffected == 0)
                         {
-
-                            //****************************************************************************
-                            objAudit.objectType = "ACCOUNT";
-                            objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                            objAudit.objectId = id;
-                            objAudit.environmentUserId = objAuthIdentity.authUserId;
-                            objAudit.environmentUserToken = objAuthIdentity.authToken;
-                            objAudit.targetResult = "400";
-                            objAudit.targetNewValue = "Error, 0 records deleted. Delete Account.";
-                            objAudit.targetTable = "account";
-
-                            await objAuditLog.Create(objAudit);
-                            //****************************************************************************
-
                             return BadRequest("Error, 0 records deleted.");
                         }
                         else
                         {
-
-                            //****************************************************************************
-                            objAudit.objectType = "ACCOUNT";
-                            objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                            objAudit.objectId = id;
-                            objAudit.environmentUserId = objAuthIdentity.authUserId;
-                            objAudit.environmentUserToken = objAuthIdentity.authToken;
-                            objAudit.targetResult = "200";
-                            objAudit.targetNewValue = "Delete Account";
-                            objAudit.targetTable = "account";
-
-                            await objAuditLog.Create(objAudit);
-                            //****************************************************************************
-
                             return Ok();
                         }
 
                     }
                     else
                     {
-                        //****************************************************************************
-                        objAudit.objectType = "ACCOUNT";
-                        objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                        objAudit.objectId = id;
-                        objAudit.environmentUserId = objAuthIdentity.authUserId;
-                        objAudit.environmentUserToken = objAuthIdentity.authToken;
-                        objAudit.targetResult = "401";
-                        objAudit.targetNewValue = "Error, Access denied to perform this action. Confirm your subcritpionId and access rights. Delete Account.";
-                        objAudit.targetTable = "account";
-
-                        await objAuditLog.Create(objAudit);
-                        //****************************************************************************
-
                         return Unauthorized("Error, Access denied to perform this action. Confirm your subcritpionId and access rights.");
                     }
                 }
@@ -599,26 +372,6 @@ namespace GrayDuck.Controllers
         {
             try
             {
-
-                //************** Generate Audit Log Results ************** ****************************
-                //objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                //objAudit.objectId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserToken = objAuthIdentity.authToken;
-                objAudit.objectType = "ACCOUNTFILE";
-                objAudit.eventType = "GetAccountFiles (accountid)";
-                objAudit.environmentMachine = HttpContext.Connection?.RemoteIpAddress?.ToString();
-                objAudit.environmentDomain = HttpContext.Request.Host.Value.ToString();
-                objAudit.environmentCulture = CultureInfo.CurrentCulture.Name;
-                objAudit.targetAPI = HttpContext.Request.Path.ToString();
-                objAudit.targetAction = "GetAccountFiles";
-                objAudit.targetMethod = HttpContext.Request.Method;
-                //objAudit.targetTable = "subscriptionuser";
-                //objAudit.targetResult = "200";
-                //objAudit.targetNewValue = "";
-                //*************************************************************************************
-
-
 
                 if (HttpContext.Request.Headers.TryGetValue("Authorization", out var objAuthHeaderValue) == false)
                     // No Header Auth Info
@@ -661,37 +414,10 @@ namespace GrayDuck.Controllers
                         {
                             accountFileService _accountFileService = new accountFileService(objConfiguration, objAuthIdentity);
 
-                            //****************************************************************************
-                            objAudit.objectType = "ACCOUNT";
-                            objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                            objAudit.objectId = id;
-                            objAudit.environmentUserId = objAuthIdentity.authUserId;
-                            objAudit.environmentUserToken = objAuthIdentity.authToken;
-                            objAudit.targetResult = "200";
-                            objAudit.targetNewValue = "Return Account File List";
-                            objAudit.targetTable = "account";
-
-                            await objAuditLog.Create(objAudit);
-                            //****************************************************************************
-
                             return Ok(await _accountFileService.Get(id));
                         }
                         else
                         {
-
-                            //****************************************************************************
-                            objAudit.objectType = "ACCOUNT";
-                            objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                            objAudit.objectId = id;
-                            objAudit.environmentUserId = objAuthIdentity.authUserId;
-                            objAudit.environmentUserToken = objAuthIdentity.authToken;
-                            objAudit.targetResult = "401";
-                            objAudit.targetNewValue = "Error, Access denied to perform this action. Confirm your subcritpionId and access rights. Return Account File List.";
-                            objAudit.targetTable = "account";
-
-                            await objAuditLog.Create(objAudit);
-                            //****************************************************************************
-
                             return Unauthorized("Error, Access denied to perform this action. Confirm your subcritpionId and access rights.");
                         }
                     }
@@ -728,23 +454,6 @@ namespace GrayDuck.Controllers
         {
             try
             {
-                //************** Generate Audit Log Results ************** ****************************
-                //objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                //objAudit.objectId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserToken = objAuthIdentity.authToken;
-                objAudit.objectType = "ACCOUNTFILE";
-                objAudit.eventType = "UploadAccountFile";
-                objAudit.environmentMachine = HttpContext.Connection?.RemoteIpAddress?.ToString();
-                objAudit.environmentDomain = HttpContext.Request.Host.Value.ToString();
-                objAudit.environmentCulture = CultureInfo.CurrentCulture.Name;
-                objAudit.targetAPI = HttpContext.Request.Path.ToString();
-                objAudit.targetAction = "UploadAccountFile";
-                objAudit.targetMethod = HttpContext.Request.Method;
-                //objAudit.targetTable = "subscriptionuser";
-                //objAudit.targetResult = "200";
-                //objAudit.targetNewValue = "";
-                //*************************************************************************************
 
                 if (HttpContext.Request.Headers.TryGetValue("Authorization", out var objAuthHeaderValue) == false)
                     // No Header Auth Info
@@ -835,26 +544,6 @@ namespace GrayDuck.Controllers
                                 accountFileService _accountFileService = new accountFileService(objConfiguration, objAuthIdentity);
                                 objItem = await _accountFileService.Create(objItem);
 
-                                //****************************************************************************
-                                objAudit.objectType = "ACCOUNT";
-                                objAudit.subscriptionId = Guid.Parse(subscriptionId);
-                                objAudit.objectId = id;
-                                objAudit.environmentUserId = objAuthIdentity.authUserId;
-                                objAudit.environmentUserToken = objAuthIdentity.authToken;
-                                objAudit.targetResult = "201";
-                                objAudit.targetNewValue = "Uploaded File For Account (" + fullFileName + ")";
-                                objAudit.targetTable = "account";
-
-                                await objAuditLog.Create(objAudit);
-
-
-                                objAudit.objectType = "ACCOUNTFILE";
-                                objAudit.objectId = objItem[0].Id;
-                                objAudit.targetTable = "accountfile";
-
-                                await objAuditLog.Create(objAudit);
-                                //****************************************************************************
-
                                 return CreatedAtRoute("GetAccountFiless", new { id = id }, objItem);
 
                             }
@@ -862,19 +551,6 @@ namespace GrayDuck.Controllers
                         }
                         else
                         {
-
-                            //****************************************************************************
-                            objAudit.objectType = "ACCOUNT";
-                            objAudit.subscriptionId = Guid.Parse(subscriptionId);
-                            objAudit.objectId = id;
-                            objAudit.environmentUserId = objAuthIdentity.authUserId;
-                            objAudit.environmentUserToken = objAuthIdentity.authToken;
-                            objAudit.targetResult = "401";
-                            objAudit.targetNewValue = "Error, Access denied to perform this action. Confirm your subcritpionId and access rights. Upload Account File.";
-                            objAudit.targetTable = "account";
-
-                            await objAuditLog.Create(objAudit);
-                            //****************************************************************************
 
                             return Unauthorized("Error, Access denied to perform this action. Confirm your subcritpionId and access rights.");
                         }
@@ -911,24 +587,6 @@ namespace GrayDuck.Controllers
         {
             try
             {
-
-                //************** Generate Audit Log Results ************** ****************************
-                //objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                //objAudit.objectId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserToken = objAuthIdentity.authToken;
-                objAudit.objectType = "ACCOUNTCUSTOMFIELD";
-                objAudit.eventType = "GetAccountCustomFields";
-                objAudit.environmentMachine = HttpContext.Connection?.RemoteIpAddress?.ToString();
-                objAudit.environmentDomain = HttpContext.Request.Host.Value.ToString();
-                objAudit.environmentCulture = CultureInfo.CurrentCulture.Name;
-                objAudit.targetAPI = HttpContext.Request.Path.ToString();
-                objAudit.targetAction = "GetAccountCustomField";
-                objAudit.targetMethod = HttpContext.Request.Method;
-                //objAudit.targetTable = "subscriptionuser";
-                //objAudit.targetResult = "200";
-                //objAudit.targetNewValue = "";
-                //*************************************************************************************
 
                 if (HttpContext.Request.Headers.TryGetValue("Authorization", out var objAuthHeaderValue) == false)
                     // No Header Auth Info
@@ -971,36 +629,10 @@ namespace GrayDuck.Controllers
                         {
                             accountCustomFieldsService _accountcustomfieldService = new accountCustomFieldsService(objConfiguration, objAuthIdentity);
 
-
-                            //****************************************************************************
-                            objAudit.objectType = "ACCOUNT";
-                            objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                            objAudit.objectId = id;
-                            objAudit.environmentUserId = objAuthIdentity.authUserId;
-                            objAudit.environmentUserToken = objAuthIdentity.authToken;
-                            objAudit.targetResult = "200";
-                            objAudit.targetNewValue = "Return Account Custom Fields";
-                            objAudit.targetTable = "account";
-
-                            await objAuditLog.Create(objAudit);
-                            //****************************************************************************
-
                             return Ok(await _accountcustomfieldService.Get(id));
                         }
                         else
                         {
-                            //****************************************************************************
-                            objAudit.objectType = "ACCOUNT";
-                            objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId; ;
-                            objAudit.objectId = id;
-                            objAudit.environmentUserId = objAuthIdentity.authUserId;
-                            objAudit.environmentUserToken = objAuthIdentity.authToken;
-                            objAudit.targetResult = "401";
-                            objAudit.targetNewValue = "Error, Access denied to perform this action. Confirm your subcritpionId and access rights. Get Account Custom Field.";
-                            objAudit.targetTable = "account";
-
-                            await objAuditLog.Create(objAudit);
-                            //****************************************************************************
 
                             return Unauthorized("Error, Access denied to perform this action. Confirm your subcritpionId and access rights.");
                         }
@@ -1032,25 +664,6 @@ namespace GrayDuck.Controllers
         {
             try
             {
-
-
-                //************** Generate Audit Log Results ************** ****************************
-                //objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                //objAudit.objectId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserToken = objAuthIdentity.authToken;
-                objAudit.objectType = "ACCOUNTCUSTOMFIELD";
-                objAudit.eventType = "CreateAccountCustomFields";
-                objAudit.environmentMachine = HttpContext.Connection?.RemoteIpAddress?.ToString();
-                objAudit.environmentDomain = HttpContext.Request.Host.Value.ToString();
-                objAudit.environmentCulture = CultureInfo.CurrentCulture.Name;
-                objAudit.targetAPI = HttpContext.Request.Path.ToString();
-                objAudit.targetAction = "CreateAccountCustomField";
-                objAudit.targetMethod = HttpContext.Request.Method;
-                //objAudit.targetTable = "subscriptionuser";
-                //objAudit.targetResult = "200";
-                //objAudit.targetNewValue = "";
-                //*************************************************************************************
 
                 if (HttpContext.Request.Headers.TryGetValue("Authorization", out var objAuthHeaderValue) == false)
                     // No Header Auth Info
@@ -1092,20 +705,6 @@ namespace GrayDuck.Controllers
                         //If we are Authorized to Perform this action lets proceed
                         if (boolAuthorized == true)
                         {
-
-                            //****************************************************************************
-                            objAudit.objectType = "ACCOUNT";
-                            objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                            objAudit.objectId = id;
-                            objAudit.environmentUserId = objAuthIdentity.authUserId;
-                            objAudit.environmentUserToken = objAuthIdentity.authToken;
-                            objAudit.targetResult = "200";
-                            objAudit.targetNewValue = "Create Account Custom Fields";
-                            objAudit.targetTable = "account";
-
-                            await objAuditLog.Create(objAudit);
-                            //****************************************************************************
-
                             accountCustomFieldsService _accountcustomfieldService = new accountCustomFieldsService(objConfiguration, objAuthIdentity);
                             objItem = await _accountcustomfieldService.Create(objItem);
 
@@ -1114,19 +713,6 @@ namespace GrayDuck.Controllers
                         }
                         else
                         {
-                            //****************************************************************************
-                            objAudit.objectType = "ACCOUNT";
-                            objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId; ;
-                            objAudit.objectId = id;
-                            objAudit.environmentUserId = objAuthIdentity.authUserId;
-                            objAudit.environmentUserToken = objAuthIdentity.authToken;
-                            objAudit.targetResult = "401";
-                            objAudit.targetNewValue = "Error, Access denied to perform this action. Confirm your subcritpionId and access rights. Create Account Custom Fields.";
-                            objAudit.targetTable = "account";
-
-                            await objAuditLog.Create(objAudit);
-                            //****************************************************************************
-
                             return Unauthorized("Error, Access denied to perform this action. Confirm your subcritpionId and access rights.");
                         }
 
@@ -1158,25 +744,6 @@ namespace GrayDuck.Controllers
         {
             try
             {
-
-
-                //************** Generate Audit Log Results ************** ****************************
-                //objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                //objAudit.objectId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserId = objAuthIdentity.authUserId;
-                //objAudit.environmentUserToken = objAuthIdentity.authToken;
-                objAudit.objectType = "ACCOUNTCUSTOMFIELD";
-                objAudit.eventType = "DeleteAccountCustomFields";
-                objAudit.environmentMachine = HttpContext.Connection?.RemoteIpAddress?.ToString();
-                objAudit.environmentDomain = HttpContext.Request.Host.Value.ToString();
-                objAudit.environmentCulture = CultureInfo.CurrentCulture.Name;
-                objAudit.targetAPI = HttpContext.Request.Path.ToString();
-                objAudit.targetAction = "DeleteAccountCustomFields";
-                objAudit.targetMethod = HttpContext.Request.Method;
-                //objAudit.targetTable = "subscriptionuser";
-                //objAudit.targetResult = "200";
-                //objAudit.targetNewValue = "";
-                //*************************************************************************************
 
                 if (HttpContext.Request.Headers.TryGetValue("Authorization", out var objAuthHeaderValue) == false)
                     // No Header Auth Info
@@ -1217,20 +784,6 @@ namespace GrayDuck.Controllers
                         //If we are Authorized to Perform this action lets proceed
                         if (boolAuthorized == true)
                         {
-
-                            //****************************************************************************
-                            objAudit.objectType = "ACCOUNT";
-                            objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId;
-                            objAudit.objectId = id;
-                            objAudit.environmentUserId = objAuthIdentity.authUserId;
-                            objAudit.environmentUserToken = objAuthIdentity.authToken;
-                            objAudit.targetResult = "200";
-                            objAudit.targetNewValue = "Delete Account Custom Fields";
-                            objAudit.targetTable = "account";
-
-                            await objAuditLog.Create(objAudit);
-                            //****************************************************************************
-
                             accountCustomFieldsService _accountService = new accountCustomFieldsService(objConfiguration, objAuthIdentity);
 
                             _accountService.Remove(id);
@@ -1239,18 +792,6 @@ namespace GrayDuck.Controllers
                         }
                         else
                         {
-                            //****************************************************************************
-                            objAudit.objectType = "ACCOUNT";
-                            objAudit.subscriptionId = objAuthIdentity.authSecurity[0].subscriptionId; ;
-                            objAudit.objectId = id;
-                            objAudit.environmentUserId = objAuthIdentity.authUserId;
-                            objAudit.environmentUserToken = objAuthIdentity.authToken;
-                            objAudit.targetResult = "401";
-                            objAudit.targetNewValue = "Error, Access denied to perform this action. Confirm your subcritpionId and access rights. Delete Account Custom Fields.";
-                            objAudit.targetTable = "account";
-
-                            await objAuditLog.Create(objAudit);
-                            //****************************************************************************
 
                             return Unauthorized("Error, Access denied to perform this action. Confirm your subcritpionId and access rights.");
                         }

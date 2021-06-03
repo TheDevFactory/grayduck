@@ -385,6 +385,10 @@ namespace GrayDuck.Services
             }
             catch (Exception ex)
             {
+
+                //Log Exception in Code (Example) To Rollbar
+                Rollbar.RollbarLocator.RollbarInstance.Error(ex);
+
                 //Create Object to return
                 objUserIdentity.authToken = apitoken; //Return authToken we have stored for this user
                 objUserIdentity.authMessage = "FAILED"; //SUCCESS OR FAILED
@@ -538,6 +542,9 @@ namespace GrayDuck.Services
             }
             catch (Exception ex)
             {
+                //Log Exception in Code (Example) To Rollbar
+                Rollbar.RollbarLocator.RollbarInstance.Error(ex);
+
                 //objUserIdentity.authToken = apitoken; //Return authToken we have stored for this user
                 objUserIdentity.authMessage = "FAILED"; //SUCCESS OR FAILED
                 objUserIdentity.authResult = "Auth exception, please try again later. " + ex.Message.ToString(); //Error Message or Success Message
