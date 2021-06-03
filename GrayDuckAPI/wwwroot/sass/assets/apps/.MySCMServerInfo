@@ -1,0 +1,11 @@
+SCMBranch=GrayDuck
+SCMRepository=GrayDuck/GrayDuckAPI/wwwroot/sass/assets/apps
+SCMMainlineUUID={f908f74b-3df4-400f-ac2c-519b64a5f092}
+SCMBranchRepositoryID=1734
+contacts.scss;3439596699;2;1584217192;|2504|4659
+invoice.scss;3233701761;2;1584217700;|2505|4660
+mailbox.scss;1620179805;2;1584217544;|2506|4661
+mailing-chat.scss;3987911405;2;1584217586;|2507|4662
+notes.scss;1341540346;2;1583519166;|2508|4663
+scrumboard.scss;3070634011;2;1583519166;|2509|4664
+todolist.scss;2792676796;2;1584217658;|2510|4665

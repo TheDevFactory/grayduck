@@ -1,0 +1,11 @@
+SCMBranch=GrayDuck
+SCMRepository=GrayDuck/GrayDuckAPI/wwwroot/plugins/drag-and-drop/dragula
+SCMMainlineUUID={f908f74b-3df4-400f-ac2c-519b64a5f092}
+SCMBranchRepositoryID=1685
+crossvent.js;2230752249;2;1476810978;|1997|4152
+crossvent.min.js;3304635036;2;1476810978;|1998|4153
+custom-dragula.js;2675998549;2;1568476500;|1999|4154
+dragula.css;3431435934;2;1584829596;|2000|4155
+dragula.js;2307029138;2;1497149298;|2001|4156
+dragula.min.js;208002782;2;1497149298;|2002|4157
+example.css;3602893097;2;1584829596;|2003|4158

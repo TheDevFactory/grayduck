@@ -1,0 +1,11 @@
+SCMBranch=GrayDuck
+SCMRepository=GrayDuck/GrayDuckAPI/wwwroot/plugins/lightbox
+SCMMainlineUUID={f908f74b-3df4-400f-ac2c-519b64a5f092}
+SCMBranchRepositoryID=1715
+custom-photswipe.css;489387532;2;1584829596;|2445|4600
+custom-photswipe.js;1796712086;2;1557259594;|2446|4601
+photoswipe-ui-default.js;2087136221;2;1519543536;|2447|4602
+photoswipe-ui-default.min.js;1008564914;2;1519543536;|2448|4603
+photoswipe.css;3665589854;2;1584829596;|2449|4604
+photoswipe.js;171095354;2;1519543536;|2450|4605
+photoswipe.min.js;1910168156;2;1519543536;|2451|4606

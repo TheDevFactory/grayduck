@@ -1,0 +1,10 @@
+SCMBranch=GrayDuck
+SCMRepository=GrayDuck/GrayDuckAPI/wwwroot/plugins/sweetalerts
+SCMMainlineUUID={f908f74b-3df4-400f-ac2c-519b64a5f092}
+SCMBranchRepositoryID=1725
+custom-sweetalert.js;2048119347;2;1584216050;|2472|4627
+promise-polyfill.js;3770131024;2;1527886978;|2473|4628
+sweetalert.css;3858867720;2;1584829596;|2474|4629
+sweetalert.js;968877952;2;1567524800;|2475|4630
+sweetalert2.min.css;615114030;2;1584829596;|2476|4631
+sweetalert2.min.js;1687536350;2;1573754032;|2477|4632

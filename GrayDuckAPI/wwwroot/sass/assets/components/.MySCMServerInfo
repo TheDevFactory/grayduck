@@ -1,0 +1,11 @@
+SCMBranch=GrayDuck
+SCMRepository=GrayDuck/GrayDuckAPI/wwwroot/sass/assets/components
+SCMMainlineUUID={f908f74b-3df4-400f-ac2c-519b64a5f092}
+SCMBranchRepositoryID=1736
+custom-carousel.scss;3421052087;2;1580875398;|2513|4668
+custom-countdown.scss;2841157078;2;1580875398;|2514|4669
+custom-counter.scss;767262956;2;1580875398;|2515|4670
+custom-list-group.scss;3757081836;2;1580875398;|2516|4671
+custom-media_object.scss;3765186128;2;1580875398;|2517|4672
+custom-modal.scss;370828281;2;1580875420;|2518|4673
+custom-sweetalert.scss;274747122;2;1580875398;|2519|4674

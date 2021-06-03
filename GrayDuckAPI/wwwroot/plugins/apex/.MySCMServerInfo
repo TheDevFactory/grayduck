@@ -1,0 +1,7 @@
+SCMBranch=GrayDuck
+SCMRepository=GrayDuck/GrayDuckAPI/wwwroot/plugins/apex
+SCMMainlineUUID={f908f74b-3df4-400f-ac2c-519b64a5f092}
+SCMBranchRepositoryID=1674
+apexcharts.css;2345924402;2;1574483096;|1975|4130
+apexcharts.min.js;1854950881;2;1574483096;|1976|4131
+custom-apexcharts.js;979718280;2;1573762988;|1977|4132

@@ -1,0 +1,12 @@
+SCMBranch=GrayDuck
+SCMRepository=GrayDuck/GrayDuckAPI/wwwroot/sass/plugins/table/datatable
+SCMMainlineUUID={f908f74b-3df4-400f-ac2c-519b64a5f092}
+SCMBranchRepositoryID=1782
+custom_dt_custom.scss;4030286564;2;1583457568;|2626|4781
+custom_dt_html5.scss;2836321901;2;1580924014;|2627|4782
+custom_dt_miscellaneous.scss;3827969473;2;1583457572;|2628|4783
+custom_dt_multiple_tables.scss;2344685900;2;1580924014;|2629|4784
+datatables-dark.scss;2595388768;2;1580924014;|2630|4785
+datatables.scss;2849645312;2;1580924014;|2631|4786
+dt-global_style-dark.scss;725001715;2;1580924014;|2632|4787
+dt-global_style.scss;1546126455;2;1583457326;|2633|4788

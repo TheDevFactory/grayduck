@@ -1,0 +1,6 @@
+SCMBranch=GrayDuck
+SCMRepository=GrayDuck/GrayDuckAPI/wwwroot/assets/js/components/session-timeout
+SCMMainlineUUID={f908f74b-3df4-400f-ac2c-519b64a5f092}
+SCMBranchRepositoryID=1657
+bootstrap-session-timeout.js;2150361898;2;1567642728;|1951|4106
+custom-bootstrap_session_timeout.js;3699080379;2;1577914214;|1952|4107

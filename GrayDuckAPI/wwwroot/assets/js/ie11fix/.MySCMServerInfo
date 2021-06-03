@@ -1,0 +1,5 @@
+SCMBranch=GrayDuck
+SCMRepository=GrayDuck/GrayDuckAPI/wwwroot/assets/js/ie11fix
+SCMMainlineUUID={f908f74b-3df4-400f-ac2c-519b64a5f092}
+SCMBranchRepositoryID=1662
+fn.fix-padStart.js;3956805524;2;1557352872;|1960|4115

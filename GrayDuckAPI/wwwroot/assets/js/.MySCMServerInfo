@@ -1,0 +1,8 @@
+SCMBranch=GrayDuck
+SCMRepository=GrayDuck/GrayDuckAPI/wwwroot/assets/js
+SCMMainlineUUID={f908f74b-3df4-400f-ac2c-519b64a5f092}
+SCMBranchRepositoryID=1651
+app.js;68619939;2;1597440575;|1932|4087
+custom.js;2335475712;2;1580173966;|1933|4088
+loader.js;1039623259;2;1575763474;|1934|4089
+scrollspyNav.js;352415915;2;1572387840;|1935|4090

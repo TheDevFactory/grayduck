@@ -1,0 +1,7 @@
+SCMBranch=GrayDuck
+SCMRepository=GrayDuck/GrayDuckAPI/wwwroot/sass/plugins/pricing-table/css/_pricing-table
+SCMMainlineUUID={f908f74b-3df4-400f-ac2c-519b64a5f092}
+SCMBranchRepositoryID=1778
+_pricing-table-animated.scss;2750041956;2;1578601292;|2620|4775
+_pricing-table-basic.scss;3615651498;2;1578601280;|2621|4776
+_pricing-table-toggle.scss;3793286748;2;1578601312;|2622|4777

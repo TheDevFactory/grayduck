@@ -1,0 +1,8 @@
+SCMBranch=GrayDuck
+SCMRepository=GrayDuck/GrayDuckAPI/wwwroot/plugins/table/datatable/button-ext
+SCMMainlineUUID={f908f74b-3df4-400f-ac2c-519b64a5f092}
+SCMBranchRepositoryID=1728
+buttons.html5.min.js;1127620493;2;1573762988;|2489|4644
+buttons.print.min.js;955401435;2;1513964808;|2490|4645
+dataTables.buttons.min.js;244937804;2;1513964808;|2491|4646
+jszip.min.js;2925959120;2;1439476258;|2492|4647

@@ -1,0 +1,9 @@
+SCMBranch=GrayDuck
+SCMRepository=GrayDuck/GrayDuckAPI/wwwroot/sass/base
+SCMMainlineUUID={f908f74b-3df4-400f-ac2c-519b64a5f092}
+SCMBranchRepositoryID=1754
+_base.scss;1503011743;2;1580874894;|2591|4746
+_color_variables.scss;3790740443;2;1584219284;|2592|4747
+_functions.scss;95666073;2;1574458106;|2593|4748
+_mixins.scss;2281266733;2;1574454860;|2594|4749
+_utilities.scss;1759497761;2;1578344000;|2595|4750

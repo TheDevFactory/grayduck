@@ -1,0 +1,10 @@
+SCMBranch=GrayDuck
+SCMRepository=GrayDuck/GrayDuckAPI/wwwroot/plugins/select2
+SCMMainlineUUID={f908f74b-3df4-400f-ac2c-519b64a5f092}
+SCMBranchRepositoryID=1724
+custom-select2.js;3987616563;2;1567284694;|2466|4621
+select2-spinner.gif;551639830;2;1377465262;|2467|4622
+select2.min.css;1767569008;2;1584829596;|2468|4623
+select2.min.js;1243277617;2;1525909274;|2469|4624
+select2.png;2704910898;2;1377465264;|2470|4625
+select2x2.png;1529717957;2;1377465264;|2471|4626

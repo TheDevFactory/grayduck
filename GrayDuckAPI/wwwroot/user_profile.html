@@ -1,0 +1,644 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <title>GrayDuck - User Profile</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:400,500,600,700&display=swap" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/plugins.css" rel="stylesheet" type="text/css" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
+    <style>
+        /*
+            The below code is for DEMO purpose --- Use it if you are using this demo otherwise, Remove it
+        */
+        .navbar .navbar-item.navbar-dropdown {
+            margin-left: auto;
+        }
+
+        .layout-px-spacing {
+            min-height: calc(100vh - 125px) !important;
+        }
+    </style>
+
+    <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
+    <!--  BEGIN CUSTOM STYLE FILE  -->
+    <link href="assets/css/users/user-profile.css" rel="stylesheet" type="text/css" />
+    <link href="plugins/sweetalerts/sweetalert.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/components/custom-sweetalert.css" rel="stylesheet" type="text/css">
+    <!--  END CUSTOM STYLE FILE  -->
+
+    <script>
+        //Read local storage to ensure we can send this data to Rollbar
+        grayduckAUTH = JSON.parse(localStorage.getItem('grayduckAUTH'));
+
+        var _rollbarConfig = {
+            accessToken: "af99c7658ab347e399c3f03eb2a2a2d4",
+            captureUncaught: true,
+            captureUnhandledRejections: true,
+            autoInstrument: true,
+            captureUsername: true,
+            captureEmail: true,
+            payload: {
+                environment: "production_grayduck",
+                code_version: "1.0.0",
+                person: {
+                    id: grayduckAUTH.authUserId,
+                    username: grayduckAUTH.email,
+                    email: grayduckAUTH.email
+                }
+            },
+            transform: function (payload) {
+
+                //var url = "https://rollbar.com/occurrence/uuid/?uuid=" + payload.uuid
+
+                //Display Error Message
+                document.getElementById("spanErrorResponse").innerHTML = '<div class="alert alert-danger mb-4" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x close" data-dismiss="alert"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button> <strong>Error!</strong> Support ticket created referencing UUID ' + payload.uuid + ' </div>';
+            }
+        };
+        // Rollbar Snippet
+        !function (r) { var e = {}; function o(n) { if (e[n]) return e[n].exports; var t = e[n] = { i: n, l: !1, exports: {} }; return r[n].call(t.exports, t, t.exports, o), t.l = !0, t.exports } o.m = r, o.c = e, o.d = function (r, e, n) { o.o(r, e) || Object.defineProperty(r, e, { enumerable: !0, get: n }) }, o.r = function (r) { "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(r, Symbol.toStringTag, { value: "Module" }), Object.defineProperty(r, "__esModule", { value: !0 }) }, o.t = function (r, e) { if (1 & e && (r = o(r)), 8 & e) return r; if (4 & e && "object" == typeof r && r && r.__esModule) return r; var n = Object.create(null); if (o.r(n), Object.defineProperty(n, "default", { enumerable: !0, value: r }), 2 & e && "string" != typeof r) for (var t in r) o.d(n, t, function (e) { return r[e] }.bind(null, t)); return n }, o.n = function (r) { var e = r && r.__esModule ? function () { return r.default } : function () { return r }; return o.d(e, "a", e), e }, o.o = function (r, e) { return Object.prototype.hasOwnProperty.call(r, e) }, o.p = "", o(o.s = 0) }([function (r, e, o) { "use strict"; var n = o(1), t = o(5); _rollbarConfig = _rollbarConfig || {}, _rollbarConfig.rollbarJsUrl = _rollbarConfig.rollbarJsUrl || "https://cdn.rollbar.com/rollbarjs/refs/tags/v2.19.2/rollbar.min.js", _rollbarConfig.async = void 0 === _rollbarConfig.async || _rollbarConfig.async; var a = n.setupShim(window, _rollbarConfig), l = t(_rollbarConfig); window.rollbar = n.Rollbar, a.loadFull(window, document, !_rollbarConfig.async, _rollbarConfig, l) }, function (r, e, o) { "use strict"; var n = o(2), t = o(3); function a(r) { return function () { try { return r.apply(this, arguments) } catch (r) { try { console.error("[Rollbar]: Internal error", r) } catch (r) { } } } } var l = 0; function i(r, e) { this.options = r, this._rollbarOldOnError = null; var o = l++; this.shimId = function () { return o }, "undefined" != typeof window && window._rollbarShims && (window._rollbarShims[o] = { handler: e, messages: [] }) } var s = o(4), d = function (r, e) { return new i(r, e) }, c = function (r) { return new s(d, r) }; function u(r) { return a((function () { var e = this, o = Array.prototype.slice.call(arguments, 0), n = { shim: e, method: r, args: o, ts: new Date }; window._rollbarShims[this.shimId()].messages.push(n) })) } i.prototype.loadFull = function (r, e, o, n, t) { var l = !1, i = e.createElement("script"), s = e.getElementsByTagName("script")[0], d = s.parentNode; i.crossOrigin = "", i.src = n.rollbarJsUrl, o || (i.async = !0), i.onload = i.onreadystatechange = a((function () { if (!(l || this.readyState && "loaded" !== this.readyState && "complete" !== this.readyState)) { i.onload = i.onreadystatechange = null; try { d.removeChild(i) } catch (r) { } l = !0, function () { var e; if (void 0 === r._rollbarDidLoad) { e = new Error("rollbar.js did not load"); for (var o, n, a, l, i = 0; o = r._rollbarShims[i++];)for (o = o.messages || []; n = o.shift();)for (a = n.args || [], i = 0; i < a.length; ++i)if ("function" == typeof (l = a[i])) { l(e); break } } "function" == typeof t && t(e) }() } })), d.insertBefore(i, s) }, i.prototype.wrap = function (r, e, o) { try { var n; if (n = "function" == typeof e ? e : function () { return e || {} }, "function" != typeof r) return r; if (r._isWrap) return r; if (!r._rollbar_wrapped && (r._rollbar_wrapped = function () { o && "function" == typeof o && o.apply(this, arguments); try { return r.apply(this, arguments) } catch (o) { var e = o; throw e && ("string" == typeof e && (e = new String(e)), e._rollbarContext = n() || {}, e._rollbarContext._wrappedSource = r.toString(), window._rollbarWrappedError = e), e } }, r._rollbar_wrapped._isWrap = !0, r.hasOwnProperty)) for (var t in r) r.hasOwnProperty(t) && (r._rollbar_wrapped[t] = r[t]); return r._rollbar_wrapped } catch (e) { return r } }; for (var p = "log,debug,info,warn,warning,error,critical,global,configure,handleUncaughtException,handleAnonymousErrors,handleUnhandledRejection,captureEvent,captureDomContentLoaded,captureLoad".split(","), f = 0; f < p.length; ++f)i.prototype[p[f]] = u(p[f]); r.exports = { setupShim: function (r, e) { if (r) { var o = e.globalAlias || "Rollbar"; if ("object" == typeof r[o]) return r[o]; r._rollbarShims = {}, r._rollbarWrappedError = null; var l = new c(e); return a((function () { e.captureUncaught && (l._rollbarOldOnError = r.onerror, n.captureUncaughtExceptions(r, l, !0), e.wrapGlobalEventHandlers && t(r, l, !0)), e.captureUnhandledRejections && n.captureUnhandledRejections(r, l, !0); var a = e.autoInstrument; return !1 !== e.enabled && (void 0 === a || !0 === a || "object" == typeof a && a.network) && r.addEventListener && (r.addEventListener("load", l.captureLoad.bind(l)), r.addEventListener("DOMContentLoaded", l.captureDomContentLoaded.bind(l))), r[o] = l, l }))() } }, Rollbar: c } }, function (r, e, o) { "use strict"; function n(r, e, o, n) { r._rollbarWrappedError && (n[4] || (n[4] = r._rollbarWrappedError), n[5] || (n[5] = r._rollbarWrappedError._rollbarContext), r._rollbarWrappedError = null); var t = e.handleUncaughtException.apply(e, n); o && o.apply(r, n), "anonymous" === t && (e.anonymousErrorsPending += 1) } r.exports = { captureUncaughtExceptions: function (r, e, o) { if (r) { var t; if ("function" == typeof e._rollbarOldOnError) t = e._rollbarOldOnError; else if (r.onerror) { for (t = r.onerror; t._rollbarOldOnError;)t = t._rollbarOldOnError; e._rollbarOldOnError = t } e.handleAnonymousErrors(); var a = function () { var o = Array.prototype.slice.call(arguments, 0); n(r, e, t, o) }; o && (a._rollbarOldOnError = t), r.onerror = a } }, captureUnhandledRejections: function (r, e, o) { if (r) { "function" == typeof r._rollbarURH && r._rollbarURH.belongsToShim && r.removeEventListener("unhandledrejection", r._rollbarURH); var n = function (r) { var o, n, t; try { o = r.reason } catch (r) { o = void 0 } try { n = r.promise } catch (r) { n = "[unhandledrejection] error getting `promise` from event" } try { t = r.detail, !o && t && (o = t.reason, n = t.promise) } catch (r) { } o || (o = "[unhandledrejection] error getting `reason` from event"), e && e.handleUnhandledRejection && e.handleUnhandledRejection(o, n) }; n.belongsToShim = o, r._rollbarURH = n, r.addEventListener("unhandledrejection", n) } } } }, function (r, e, o) { "use strict"; function n(r, e, o) { if (e.hasOwnProperty && e.hasOwnProperty("addEventListener")) { for (var n = e.addEventListener; n._rollbarOldAdd && n.belongsToShim;)n = n._rollbarOldAdd; var t = function (e, o, t) { n.call(this, e, r.wrap(o), t) }; t._rollbarOldAdd = n, t.belongsToShim = o, e.addEventListener = t; for (var a = e.removeEventListener; a._rollbarOldRemove && a.belongsToShim;)a = a._rollbarOldRemove; var l = function (r, e, o) { a.call(this, r, e && e._rollbar_wrapped || e, o) }; l._rollbarOldRemove = a, l.belongsToShim = o, e.removeEventListener = l } } r.exports = function (r, e, o) { if (r) { var t, a, l = "EventTarget,Window,Node,ApplicationCache,AudioTrackList,ChannelMergerNode,CryptoOperation,EventSource,FileReader,HTMLUnknownElement,IDBDatabase,IDBRequest,IDBTransaction,KeyOperation,MediaController,MessagePort,ModalWindow,Notification,SVGElementInstance,Screen,TextTrack,TextTrackCue,TextTrackList,WebSocket,WebSocketWorker,Worker,XMLHttpRequest,XMLHttpRequestEventTarget,XMLHttpRequestUpload".split(","); for (t = 0; t < l.length; ++t)r[a = l[t]] && r[a].prototype && n(e, r[a].prototype, o) } } }, function (r, e, o) { "use strict"; function n(r, e) { this.impl = r(e, this), this.options = e, function (r) { for (var e = function (r) { return function () { var e = Array.prototype.slice.call(arguments, 0); if (this.impl[r]) return this.impl[r].apply(this.impl, e) } }, o = "log,debug,info,warn,warning,error,critical,global,configure,handleUncaughtException,handleAnonymousErrors,handleUnhandledRejection,_createItem,wrap,loadFull,shimId,captureEvent,captureDomContentLoaded,captureLoad".split(","), n = 0; n < o.length; n++)r[o[n]] = e(o[n]) }(n.prototype) } n.prototype._swapAndProcessMessages = function (r, e) { var o, n, t; for (this.impl = r(this.options); o = e.shift();)n = o.method, t = o.args, this[n] && "function" == typeof this[n] && ("captureDomContentLoaded" === n || "captureLoad" === n ? this[n].apply(this, [t[0], o.ts]) : this[n].apply(this, t)); return this }, r.exports = n }, function (r, e, o) { "use strict"; r.exports = function (r) { return function (e) { if (!e && !window._rollbarInitialized) { for (var o, n, t = (r = r || {}).globalAlias || "Rollbar", a = window.rollbar, l = function (r) { return new a(r) }, i = 0; o = window._rollbarShims[i++];)n || (n = o.handler), o.handler._swapAndProcessMessages(l, o.messages); window[t] = n, window._rollbarInitialized = !0 } } } }]);
+        // End Rollbar Snippet
+    </script>
+</head>
+<body class="sidebar-noneoverflow">
+
+    <!--  BEGIN NAVBAR  -->
+    <div class="header-container fixed-top">
+        <header class="header navbar navbar-expand-sm">
+
+            <ul class="navbar-item flex-row">
+                <li class="nav-item align-self-center page-heading">
+                    <div class="page-header">
+                        <div class="page-title">
+                            <h3>My Profile</h3>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <a href="javascript:void(0);" class="sidebarCollapse" data-placement="bottom"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3" y2="6"></line><line x1="3" y1="12" x2="3" y2="12"></line><line x1="3" y1="18" x2="3" y2="18"></line></svg></a>
+
+            <ul class="navbar-item flex-row navbar-dropdown">
+                <li class="nav-item dropdown message-dropdown">
+                    <a href="javascript:void(0);" class="nav-link dropdown-toggle" id="messageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download-cloud"><polyline points="8 17 12 21 16 17"></polyline><line x1="12" y1="12" x2="12" y2="21"></line><path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29"></path></svg>
+                    </a>
+                    <div class="dropdown-menu position-absolute animated fadeInUp" aria-labelledby="messageDropdown">
+                        <div class="" id="spanSubscriptions">
+
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown user-profile-dropdown order-lg-0 order-1">
+                    <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="userProfileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    </a>
+                    <div class="dropdown-menu position-absolute animated fadeInUp" aria-labelledby="userProfileDropdown">
+                        <div class="user-profile-section">
+                            <div class="media mx-auto">
+                                <img src="assets/img/90x90.jpg" class="img-fluid mr-2" alt="avatar">
+                                <div class="media-body">
+                                    <h5><span id="spanUserProfileFullName" title="Firstname"></span></h5>
+                                    <p><span id="spanUserProfileEmail" title="Email Address"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dropdown-item">
+                            <a href="user_profile.html">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> <span>My Profile</span>
+                            </a>
+                        </div>
+                        <div class="dropdown-item">
+                            <a href="auth_login.html">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg> <span>Log Out</span>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+        </header>
+    </div>
+    <!--  END NAVBAR  -->
+    <!--  BEGIN MAIN CONTAINER  -->
+    <div class="main-container" id="container">
+
+        <div class="overlay"></div>
+        <div class="cs-overlay"></div>
+        <div class="search-overlay"></div>
+
+        <!--  BEGIN SIDEBAR  -->
+        <div class="sidebar-wrapper sidebar-theme">
+
+            <nav id="compactSidebar">
+
+                <div class="theme-logo">
+                    <a href="dashboard.html">
+                        <img src="assets/img/duck-multi-size.ico" class="navbar-logo" alt="logo">
+                    </a>
+                </div>
+
+                <ul class="menu-categories">
+                    <li class="menu active">
+                        <a href="#dashboard" data-active="true" class="menu-toggle">
+                            <div class="base-menu">
+                                <div class="base-icons">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="tooltip"><span>Menu 1</span></div>
+                    </li>
+
+                    <li class="menu">
+                        <a href="#contact" data-active="false" class="menu-toggle">
+                            <div class="base-menu">
+                                <div class="base-icons">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="tooltip"><span>Contacts</span></div>
+                    </li>
+
+                    <li class="menu">
+                        <a href="#account" data-active="false" class="menu-toggle">
+                            <div class="base-menu">
+                                <div class="base-icons">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="tooltip"><span>Accounts</span></div>
+                    </li>
+
+                    <li class="menu">
+                        <a href="#starter" data-active="false" class="menu-toggle">
+                            <div class="base-menu">
+                                <div class="base-icons">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-terminal"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="tooltip"><span>Starter Kit</span></div>
+                    </li>
+                </ul>
+
+                <div class="external-links">
+                    <a href="documentation/index.html" target="_blank">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                        <div class="tooltip"><span>Documentation</span></div>
+                    </a>
+                </div>
+
+            </nav>
+
+            <div id="compact_submenuSidebar" class="submenu-sidebar">
+
+                <div class="theme-brand-name">
+                    <a href="dashboard.html">GrayDuck</a>
+                </div>
+
+                <div class="submenu" id="dashboard">
+                    <div class="category-info">
+                        <h5>Home</h5>
+                        <p>Start managing you contacts and converting sales faster.</p>
+                    </div>
+
+                    <ul class="submenu-list" data-parent-element="#dashboard">
+                        <li>
+                            <a href="javascript:void(0)"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg> Submenu 1 </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg> Submenu 2 </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="submenu" id="contact">
+                    <div class="category-info">
+                        <h5>Contacts</h5>
+                        <p>Contact management with real results.</p>
+                    </div>
+                    <ul class="submenu-list" data-parent-element="#users">
+                        <li>
+                            <a href="javascript:void(0)"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg></span> Submenu 1 </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg></span> Submenu 2 </a>
+                        </li>
+                        <li class="sub-submenu">
+                            <a role="menu" class="collapsed" data-toggle="collapse" data-target="#starter-kit" aria-expanded="false"><div><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg></span> Submenu 3 </div> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+                            <ul id="starter-kit" class="collapse" data-parent="#compact_submenuSidebar">
+                                <li>
+                                    <a href="javascript:void(0);"> Sub Submenu 1 </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="submenu" id="account">
+                    <div class="category-info">
+                        <h5>Accounts</h5>
+                        <p>Account management made easy.</p>
+                    </div>
+                    <ul class="submenu-list" data-parent-element="#users">
+                        <li>
+                            <a href="javascript:void(0)"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg></span> Submenu 1 </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg></span> Submenu 2 </a>
+                        </li>
+                        <li class="sub-submenu">
+                            <a role="menu" class="collapsed" data-toggle="collapse" data-target="#starter-kit" aria-expanded="false"><div><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg></span> Submenu 3 </div> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+                            <ul id="starter-kit" class="collapse" data-parent="#compact_submenuSidebar">
+                                <li>
+                                    <a href="javascript:void(0);"> Sub Submenu 1 </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="submenu" id="starter">
+                    <div class="category-info">
+                        <h5>REST API</h5>
+                        <p>With starter kit, you can begin working with our REST API quickly.</p>
+                    </div>
+                    <ul class="submenu-list" data-parent-element="#more">
+                        <li class="active">
+                            <a href="api/index.html" target="_blank"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg></span> Swagger Documentation </a>
+                        </li>
+                        <li>
+                            <a href="platform_basics.html"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg></span> Platform Basics </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+        <!--  END SIDEBAR  -->
+        <!--  BEGIN CONTENT AREA  -->
+        <div id="content" class="main-content">
+            <div class="layout-px-spacing">
+                <div class="row layout-spacing">
+
+                    <!-- Content -->
+                    <div class="col-xl-4 col-lg-6 col-md-5 col-sm-12 layout-top-spacing">
+
+                        <span id="spanErrorResponse"></span>
+                        <div class="user-profile layout-spacing">
+                            <div class="widget-content widget-content-area">
+                                <div class="d-flex justify-content-between">
+                                    <h3 class=""> Profile </h3>
+                                    <a href="#" class="mt-2 edit-profile"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></a>
+                                </div>
+                                <div class="text-center user-info">
+                                    <img src="assets/img/90x90.jpg" alt="avatar">
+                                    <p id="divFullName" class="">Loading Profile...</p>
+                                </div>
+                                <div class="user-info-list">
+
+                                    <div class="">
+                                        <ul class="contacts-block list-unstyled">
+                                            <li class="contacts-block__item">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-coffee"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>API Token <br /> <span id="divAPIToken">Loading...</span>
+
+                                                <div class="clipboard copy-txt">
+                                                    <a class="btn btn-outline-info mb-2 mr-2 btn-sm" href="javascript:;" data-clipboard-action="copy" data-clipboard-target="#advanced-tokencopy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy Token</a>
+                                                    <a class="btn btn-outline-danger mb-2 mr-2 btn-sm" href="javascript:;" id="btnNewToken"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>New Token</a>
+                                                </div>
+                                            </li>
+                                            <li class="contacts-block__item">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> Updated <div id="divUpdatedAt">Jan 1, 1901</div>
+                                            </li>
+                                            <li class="contacts-block__item">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Your IP Address <div id="divLocation"> Unknown </div>
+                                            </li>
+                                            <li class="contacts-block__item">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> Email <div id="divEmailAddress">Loading Email Address...</div>
+                                            </li>
+                                            <li class="contacts-block__item">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> Mobile <div id="divMobileNumber">+1 (000) 000-00000</div>
+                                            </li>
+                                            <!--<li class="contacts-block__item">
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <div class="social-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                                    </div>
+                                </li>
+                                <li class="list-inline-item">
+                                    <div class="social-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+                                    </div>
+                                </li>
+                                <li class="list-inline-item">
+                                    <div class="social-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>-->
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-xl-8 col-lg-6 col-md-7 col-sm-12 layout-top-spacing">
+
+                        <div class="bio layout-spacing ">
+                            <div class="widget-content widget-content-area">
+                                <h3 class="">Subscription Access</h3>
+                                <p>Your profile is linked to one or more subscriptions within the GrayDuck platform. Each subcription will have set permissions applied for your profile within that subscription.</p>
+                                <p>This allows your user profile to have different permissions per subscription.</p>
+                                <div class="bio-skill-box">
+
+                                    <div class="row">
+
+                                        <div class="col-12 col-xl-12 col-lg-12 mb-xl-0 mb-5 ">
+
+                                            <div class="d-flex b-skills">
+                                                <div>
+                                                </div>
+                                                <div class="">
+                                                    <h5>Subscription(s)</h5>
+                                                    <p>View the subscriptions and permissions you have for each. Most users will only have one subscription.</p>
+                                                    <div id="divSubscriptionSecurity"></div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="footer-wrapper">
+                <div class="footer-section f-section-1" id="divFooterSection1">
+
+                </div>
+                <div class="footer-section f-section-2" id="divFooterSection2">
+
+                </div>
+            </div>
+        </div>
+        <!--  END CONTENT AREA  -->
+
+    </div>
+    <!-- END MAIN CONTAINER -->
+    <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
+    <script src="assets/js/libs/jquery-3.1.1.min.js"></script>
+    <script src="bootstrap/js/popper.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="assets/js/app.js"></script>
+
+    <!--  BEGIN CUSTOM SCRIPTS FILE  -->
+    <script src="assets/js/clipboard/clipboard.min.js"></script>
+    <script src="assets/js/forms/custom-clipboard.js"></script>
+    <script src="plugins/sweetalerts/sweetalert2.min.js"></script>
+    <script src="plugins/sweetalerts/custom-sweetalert.js"></script>
+    <!--  END CUSTOM SCRIPTS FILE  -->
+
+
+    <script>
+        //Local storage has the token data we can use to verify the token is indeed correct and valid.
+        if (localStorage.getItem('grayduckAUTH') === null) {
+            //Do Nothing
+            window.location.replace("auth_login.html");
+        } else {
+            //Load the data required
+            loadData();
+
+            //Load Profile data from the server.. not local Cache
+            //We have the local cache so we can show that first and then get the server data....
+
+        }
+
+        //Load the Users data into view
+        function loadData() {
+
+            try {
+
+                var grayduckAUTH;
+                if (localStorage.getItem('grayduckAUTH') === null) {
+                    //Do Nothing
+                    window.location.replace("auth_login.html");
+                } else {
+                    //Get Auth Information to request data
+                    grayduckAUTH = JSON.parse(localStorage.getItem('grayduckAUTH'));
+
+
+                    //Execute Query Against API (Auth Token)
+                    jQuery.ajax({
+                        url: '/api/userProfile/' + grayduckAUTH.authUserId,
+                        async: true,
+                        type: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + grayduckAUTH.authToken
+                        },
+                        data: '',
+                    }).done(function (data, textStatus, jqXHR) {
+
+                        var jsonData = jqXHR.responseJSON;
+                        //console.log(jsonData);
+
+                        var obj = JSON.parse(jsonData)
+
+                        //Load Data from Profile API Results
+                        divFullName.innerHTML = 'Your Users Profile Guid <br> <span class="shadow-none badge badge-primary"> ' + obj[0].id + ' </span>';
+                        divAPIToken.innerHTML = '<span id="advanced-tokencopy">' + obj[0].apitoken + '</span>';
+                        divUpdatedAt.innerHTML = obj[0].updatedat;
+                        divEmailAddress.innerHTML = '<a href="mailto:' + obj[0].email + '">' + obj[0].email + '</a>';
+                        divMobileNumber.innerHTML = '<a href="tel:' + obj[0].mobile + '">' + obj[0].mobile + '</a>';
+                        divLocation.innerHTML = 'Loading...';
+
+                        $.getJSON("https://api.ipify.org/?format=json", function (e) {
+                            //console.log(e.ip);
+                            divLocation.innerHTML = '<a target="_blank">' + e.ip + '</a>';
+                        });
+
+
+                        //Parse JSon Object
+                        var varSubscriptions = '';
+                        grayduckAUTH = JSON.parse(localStorage.getItem('grayduckAUTH'));
+
+                        //Load Subscriptions that the user has access to
+                        //document.getElementById("spanSubscriptions").innerHTML = '';
+                        grayduckAUTH.authSecurity.forEach(
+                            element => {
+                                var str = '';
+                                str = printObject(grayduckAUTH.authSecurity)
+
+                                varSubscriptions += '<tr><td>' + element.subscriptionId + ' ' + element.name + ' ' + str + '</td></tr>'
+                            }
+                        );
+                        divSubscriptionSecurity.innerHTML = '<table id="tableUserSubscriptions" class="table table-hover dataTable no-footer"><thead><tr><th>Subscription Role and Permissions</th></tr></thead><tbody>' + varSubscriptions + '</tbody></table>';
+
+                    }).fail(function (jqXHR, textStatus, errorThrown) {
+
+                        //var jsonData = jqXHR.responseJSON;
+                        //console.log(jsonData);
+
+                        ////Store Object in Local Storage (Cache) -Clear all data since it was incorrect
+                        //localStorage.removeItem('grayduckAUTH');
+
+                        ////// Handle Failure
+                        //document.getElementById('spanRegistrationResponse').innerHTML = '<div class="alert alert-danger mb-4" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x close" data-dismiss="alert"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button> <strong>Error!</strong> ' + jsonData.signupMessage + ' </div>';
+
+                        ////No redirect needed
+                        //document.getElementById("spanErrorResponse").innerHTML = '<div class="alert alert-danger mb-4" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x close" data-dismiss="alert"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button> <strong>Error!</strong> ' + textStatus + ' ' + jqXHR.status + ' </div>';
+                        throw 'User Profile API Call Failed with Status ' + textStatus;
+                    });
+
+                }
+
+            }
+            catch (err) {
+                //Display Error Message
+                document.getElementById("spanErrorResponse").innerHTML = '<div class="alert alert-danger mb-4" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x close" data-dismiss="alert"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button> <strong>Error!</strong> ' + err.message + ' </div>';
+            }
+
+        }
+
+        //Clean up the Permissions Display
+        var printObject = function (objObject) {
+            var str = '';
+
+            for (var p in objObject) {
+
+                if (p == 'id' || p == 'subscriptionId' || p == 'createdById' || p == 'createdAt' || p == 'updatedAt' || p == 'name' || p == 'subscriptionManageAll') {
+                    //Fields we do not need to display
+                    //subscriptionManageAll = Cannot be changed by a user so it is hidden.
+                } else {
+
+                    if (typeof objObject[p] == 'string' || typeof objObject[p] == 'boolean') {
+                        str += p + ': <strong>' + objObject[p] + '</strong>; </br>';
+                    } else {
+                        if (p == '0') {
+                            str += printObject(objObject[p]);
+                        } else {
+                            str += p + ':  </br>' + printObject(objObject[p]) + '';
+                        }
+                    }
+
+                }
+
+            }
+
+            return str;
+        }
+
+        //Re-generate a new API Token
+        $('#btnNewToken').on('click', function (e) {
+
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, generate new API Token!'
+            }).then((result) => {
+                if (result.value) {
+
+
+                    //Generate new API Token
+                    //Prevents form from submitting
+                    e.preventDefault();
+
+                    //Clear any existing data first
+                    divAPIToken.innerHTML = 'Generating New Token...';
+
+                    //User Current Stored Session Data
+                    grayduckAUTH = JSON.parse(localStorage.getItem('grayduckAUTH'));
+
+
+                    //Execute Auth Against API (Auth Token)
+                    jQuery.ajax({
+                        url: '/api/userprofile?action=generatetoken&userid=' + grayduckAUTH.authUserId + '&currentToken=' + grayduckAUTH.authToken,
+                        async: true,
+                        type: 'PUT',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + grayduckAUTH.authToken
+                        },
+                    }).done(function (data, textStatus, jqXHR) {
+
+                        var jsonData = jqXHR.responseJSON;
+                        //console.log(jsonData);
+
+                        if (data.signupCode == 'Success') {
+                            divAPIToken.innerHTML = data.apitoken.toString();
+
+                            //Set Object Value to New Token and Save Back to Local Storage
+                            grayduckAUTH.authToken = data.apitoken.toString();
+
+                            //Also Update local storage
+                            localStorage.setItem('grayduckAUTH', JSON.stringify(grayduckAUTH));
+
+                        } else {
+                            divAPIToken.innerHTML = data.signupMessage;
+                        }
+
+                    }).fail(function (jqXHR, textStatus, errorThrown) {
+
+                        var jsonData = jqXHR.responseJSON;
+                        //console.log(jsonData);
+
+                        divAPIToken.innerHTML = jsonData.signupMessage;
+
+                    });
+
+
+
+                    //Show Success Message
+                    Swal.fire(
+                        'Generated!',
+                        'Your new API Token has been generated.',
+                        'success'
+                    )
+
+
+                }
+            })
+
+
+
+        })
+
+
+        $(document).ready(function () {
+            App.init();
+        });
+
+    </script>
+    <script src="assets/js/custom.js"></script>
+    <!-- END GLOBAL MANDATORY SCRIPTS -->
+</body>
+</html>

@@ -1,0 +1,7 @@
+SCMBranch=GrayDuck
+SCMRepository=GrayDuck/GrayDuckAPI/wwwroot/plugins/editors/markdown
+SCMMainlineUUID={f908f74b-3df4-400f-ac2c-519b64a5f092}
+SCMBranchRepositoryID=1689
+custom-markdown.js;1702172996;2;1565113544;|2010|4165
+simplemde.min.css;3795365562;2;1584829596;|2011|4166
+simplemde.min.js;2874477581;2;1465919824;|2012|4167

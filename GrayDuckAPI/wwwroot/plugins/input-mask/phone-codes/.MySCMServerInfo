@@ -1,0 +1,12 @@
+SCMBranch=GrayDuck
+SCMRepository=GrayDuck/GrayDuckAPI/wwwroot/plugins/input-mask/phone-codes
+SCMMainlineUUID={f908f74b-3df4-400f-ac2c-519b64a5f092}
+SCMBranchRepositoryID=1702
+phone-be.min.js;4095617033;2;1524474774;|2414|4569
+phone-ca.min.js;2148002021;2;1524474774;|2415|4570
+phone-hu.min.js;3435383896;2;1524474774;|2416|4571
+phone-it.min.js;3643072955;2;1524474774;|2417|4572
+phone-mx.min.js;445651847;2;1524474774;|2418|4573
+phone-nl.min.js;110981214;2;1524474774;|2419|4574
+phone-ru.min.js;121443164;2;1524474774;|2420|4575
+phone.min.js;1158282189;2;1524474774;|2421|4576

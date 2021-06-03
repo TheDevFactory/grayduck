@@ -1,0 +1,6 @@
+SCMBranch=GrayDuck
+SCMRepository=GrayDuck/GrayDuckAPI/wwwroot/plugins/blockui
+SCMMainlineUUID={f908f74b-3df4-400f-ac2c-519b64a5f092}
+SCMBranchRepositoryID=1676
+custom-blockui.js;2903600654;2;1574483096;|1983|4138
+jquery.blockUI.min.js;672238831;2;1522017606;|1984|4139

@@ -1,0 +1,8 @@
+SCMBranch=GrayDuck
+SCMRepository=GrayDuck/GrayDuckAPI/wwwroot/plugins/noUiSlider
+SCMMainlineUUID={f908f74b-3df4-400f-ac2c-519b64a5f092}
+SCMBranchRepositoryID=1718
+custom-nouiSlider.css;416572483;2;1584829596;|2457|4614
+custom-nouiSlider.js;1684256872;2;1565145192;|2458|4615
+nouislider.min.css;2122441664;2;1573754032;|2459|4616
+nouislider.min.js;3851280116;2;1561803146;|2460|4617

@@ -1,0 +1,10 @@
+SCMBranch=GrayDuck
+SCMRepository=GrayDuck/GrayDuckAPI/wwwroot/plugins/fullcalendar
+SCMMainlineUUID={f908f74b-3df4-400f-ac2c-519b64a5f092}
+SCMBranchRepositoryID=1698
+custom-fullcalendar.advance.css;2764221345;2;1584829596;|2313|4468
+custom-fullcalendar.advance.js;2083586878;2;1577913760;|2314|4469
+fullcalendar.css;1283095881;2;1584829596;|2315|4470
+fullcalendar.min.css;1489347428;2;1584829596;|2316|4471
+fullcalendar.min.js;3028475041;2;1555023612;|2317|4472
+moment.min.js;915338657;2;1493311416;|2318|4473

@@ -1,0 +1,8 @@
+SCMBranch=GrayDuck
+SCMRepository=GrayDuck/GrayDuckAPI/wwwroot/plugins/editors/quill
+SCMMainlineUUID={f908f74b-3df4-400f-ac2c-519b64a5f092}
+SCMBranchRepositoryID=1690
+custom-quill.js;4060156864;2;1566947772;|2013|4168
+quill.bubble.css;3606663165;2;1584829596;|2014|4169
+quill.js;3532071572;2;1536249060;|2015|4170
+quill.snow.css;1321358376;2;1584829596;|2016|4171

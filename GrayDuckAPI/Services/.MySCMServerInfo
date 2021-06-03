@@ -1,0 +1,13 @@
+SCMBranch=GrayDuck
+SCMRepository=GrayDuck/GrayDuck/GrayDuck/Services
+SCMMainlineUUID={f908f74b-3df4-400f-ac2c-519b64a5f092}
+SCMBranchRepositoryID=9
+accountService.cs;3267174573;2;1598831953;|354|3988
+activitiesScoringService.cs;977278613;2;1594594437;|355|3989
+activitiesService.cs;3872849660;2;1595556461;|356|3990
+customFieldService.cs;1949098130;2;1594669081;|358|3992
+serverlogService.cs;3542848969;2;1594594405;|359|3993
+subscriptionSecurityService.cs;2171323635;2;1594594384;|360|3994
+subscriptionService.cs;2835272065;2;1595542531;|361|3995
+subscriptionUserService.cs;3607201768;2;1598645687;|362|3996
+contactService.cs;3225455836;3;1603588961;|357|4844

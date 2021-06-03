@@ -1,0 +1,8 @@
+SCMBranch=GrayDuck
+SCMRepository=GrayDuck/GrayDuckAPI/wwwroot/plugins/flatpickr
+SCMMainlineUUID={f908f74b-3df4-400f-ac2c-519b64a5f092}
+SCMBranchRepositoryID=1692
+custom-flatpickr.css;2774675891;2;1584829596;|2019|4174
+custom-flatpickr.js;3409061133;2;1568742848;|2020|4175
+flatpickr.css;2619613148;2;1573755398;|2021|4176
+flatpickr.js;3856090319;2;1564850900;|2022|4177

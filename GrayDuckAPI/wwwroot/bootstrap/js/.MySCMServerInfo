@@ -1,0 +1,7 @@
+SCMBranch=GrayDuck
+SCMRepository=GrayDuck/GrayDuckAPI/wwwroot/bootstrap/js
+SCMMainlineUUID={f908f74b-3df4-400f-ac2c-519b64a5f092}
+SCMBranchRepositoryID=1671
+bootstrap.js;2215408202;2;1589298282;|1971|4126
+bootstrap.min.js;1931279586;2;1589298282;|1972|4127
+popper.min.js;3377719260;2;1502416594;|1973|4128
