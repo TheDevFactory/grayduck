@@ -13,36 +13,25 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+  # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+  jobs:
+    # This workflow contains a single job called "build"
+    build:
+      # The type of runner that the job will run on
+      runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      - name: Notify start deploy to Rollbar
-        uses: rollbar/github-deploy-action@2.1.1
-        id: rollbar_pre_deploy
-        with:
-          environment: 'production_grayduck'
-          version: ${{ github.sha }}
-          status: 'started'
-        env:
-          ROLLBAR_ACCESS_TOKEN: ${{ secrets.ROLLBAR_ACCESS_TOKEN }}
-          ROLLBAR_USERNAME: ${{ github.actor }}
-...
+      # Steps represent a sequence of tasks that will be executed as part of the job
+      steps:
+        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+        - uses: actions/checkout@v2
 
-    steps:
-      - name: Notify finish deploy to Rollbar
-        uses: rollbar/github-deploy-action@2.1.1
-        id: rollbar_post_deploy
-        with:
-          environment: 'production_grayduck'
-          version: ${{ github.sha }}
-          status: 'succeeded'
-        env:
-          ROLLBAR_ACCESS_TOKEN: ${{ secrets.ROLLBAR_ACCESS_TOKEN }}
-          ROLLBAR_USERNAME: ${{ github.actor }}
-          DEPLOY_ID: ${{ steps.rollbar_pre_deploy.outputs.deploy_id }}
+        # Runs a single command using the runners shell
+        - name: Rollbar deploy
+          uses: rollbar/github-deploy-action@2.0.0
+          with:
+            environment: 'production'
+            version: ${{ github.sha }}
+          env:
+            ROLLBAR_ACCESS_TOKEN: '7748f25a7427499192202a05b13a3be0'
+            ROLLBAR_USERNAME: 'thedevfactory'
+            LOCAL_USERNAME: 'TheDevFactory'
