@@ -15,16 +15,16 @@ namespace GrayDuckAPI.Controllers
         public IEnumerable<string> Get()
         {
 
-            int intValue = 100;
-            int intValue2 = 0;
+            //int intValue = 100;
+            //int intValue2 = 0;
 
-            int intOutputValue = 0;
+            //int intOutputValue = 0;
 
-            //Lets make it break!
-            intOutputValue = intValue / intValue2;
+            ////Lets make it break!
+            //intOutputValue = intValue / intValue2;
 
 
-            return new string[] { "pong" + intOutputValue };
+            return new string[] { "pong" };
         }
 
     }

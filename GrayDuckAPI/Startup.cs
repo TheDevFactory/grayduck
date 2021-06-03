@@ -62,6 +62,7 @@ namespace GrayDuck
 
             services.AddControllers();
 
+
             //Configure Rollbar
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddRollbarLogger(loggerOptions =>
