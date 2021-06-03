@@ -14,7 +14,17 @@ namespace GrayDuckAPI.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "pong" };
+
+            int intValue = 100;
+            int intValue2 = 0;
+
+            int intOutputValue = 0;
+
+            //Lets make it break!
+            intOutputValue = intValue / intValue2;
+
+
+            return new string[] { "pong" + intOutputValue };
         }
 
     }
